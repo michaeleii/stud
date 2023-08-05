@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
@@ -15,11 +16,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${inter.className}`}>
-      <div className="p-5">
-        <Nav />
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <div className={`${inter.className}`}>
+        <div className="p-5">
+          <Nav />
+        </div>
+        <main className="p-5 xl:p-10">{children}</main>
       </div>
-      <main className="p-5 xl:p-10">{children}</main>
-    </div>
+    </ThemeProvider>
   );
 }

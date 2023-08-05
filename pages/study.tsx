@@ -1,7 +1,7 @@
 function Study() {
   return (
     <div>
-      <h1>Start Study Session</h1>
+      <h1>Study</h1>
     </div>
   );
 }
