@@ -3,7 +3,20 @@ import PageHeading from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
 import { courses } from "@/data/courses";
 import { Plus } from "lucide-react";
+import { GetStaticProps } from "next";
 import Link from "next/link";
+
+export const API_URL =
+  "https://my-json-server.typicode.com/michaeleii/stud/courses";
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch(
+    "https://my-json-server.typicode.com/michaeleii/stud/courses"
+  );
+  return {
+    props: { courses },
+  };
+};
 
 function Courses() {
   return (
