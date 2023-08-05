@@ -1,3 +1,8 @@
+// export async function getStaticProps(ctx: any) {
+//   return {
+//     props: {},
+//   };
+// }
 function CourseDetails() {
   return (
     <>
