@@ -1,10 +1,11 @@
 import Course from "@/types/Course";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { API_URL } from ".";
+import PageHeading from "@/components/PageHeading";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(`${API_URL}/courses`);
-  const courses = (await res.json()) as Course[];
+  const courses: Course[] = await res.json();
   const paths = courses.map((course) => {
     return { params: { id: course.id.toString() } };
   });
@@ -17,9 +18,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const id = context.params.id;
   const res = await fetch(`${API_URL}/courses/${id}`);
-  const course = (await res.json()) as Course;
-
-  if (!course) return noCourse;
+  const course: Course = await res.json();
 
   return {
     props: { course },
@@ -29,7 +28,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 function CourseDetails({ course }: { course: Course }) {
   return (
     <>
-      <h1>{course.name}</h1>
+      <PageHeading>{course.name}</PageHeading>
       <h2 className="my-3 text-xl">{course.description}</h2>
     </>
   );
