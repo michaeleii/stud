@@ -1,8 +1,10 @@
-import { courses } from "@/data/courses";
 import Course from "@/types/Course";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { API_URL } from ".";
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch(`${API_URL}/courses`);
+  const courses = (await res.json()) as Course[];
   const paths = courses.map((course) => {
     return { params: { id: course.id.toString() } };
   });
@@ -14,8 +16,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!context.params) return noCourse;
 
   const id = context.params.id;
-
-  const course = courses.find((course) => course.id === id);
+  const res = await fetch(`${API_URL}/courses/${id}`);
+  const course = (await res.json()) as Course;
 
   if (!course) return noCourse;
 
