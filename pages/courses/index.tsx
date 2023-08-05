@@ -1,7 +1,6 @@
 import CourseCard from "@/components/CourseCard";
 import PageHeading from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
-import { courses } from "@/data/courses";
 import Course from "@/types/Course";
 import { Plus } from "lucide-react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
