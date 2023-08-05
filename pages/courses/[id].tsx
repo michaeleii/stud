@@ -1,11 +1,10 @@
-import Course from "@/types/Course";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { API_URL } from ".";
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+
 import PageHeading from "@/components/PageHeading";
+import { Course, getCourse, getCourses } from "@/services/apiCourse";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${API_URL}/courses`);
-  const courses: Course[] = await res.json();
+  const courses = await getCourses();
   const paths = courses.map((course) => {
     return { params: { id: course.id.toString() } };
   });
@@ -13,12 +12,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const noCourse = { props: {} };
-  if (!context.params) return noCourse;
+  if (!context.params) return { props: {} };
 
   const id = context.params.id;
-  const res = await fetch(`${API_URL}/courses/${id}`);
-  const course: Course = await res.json();
+  if (!id || typeof id !== "string") return { props: {} };
+
+  const course = await getCourse(id);
 
   return {
     props: { course },

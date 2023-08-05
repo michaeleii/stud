@@ -14,8 +14,8 @@ import { Input } from "@/components/ui/input";
 
 import PageHeading from "@/components/PageHeading";
 import { useForm } from "react-hook-form";
-import { API_URL } from ".";
-import { useRouter } from "next/router";
+import { useCreateCourse } from "@/hooks/course/useCreateCourse";
+import ButtonLoading from "@/components/ButtonLoading";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -26,27 +26,23 @@ const formSchema = z.object({
   }),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 function AddCourseForm() {
-  const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       description: "",
     },
   });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const { createCourse, isLoading } = useCreateCourse();
+  async function onSubmit(values: FormValues) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     const { name, description } = values;
     const newCourse = { name, description };
-    const res = await fetch(`${API_URL}/courses`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newCourse),
-    });
-    const course = await res.json();
-    router.replace(`/courses/${course.id}`);
+    createCourse(newCourse);
   }
   return (
     <div>
@@ -63,7 +59,11 @@ function AddCourseForm() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter course name" {...field} />
+                  <Input
+                    placeholder="Enter course name"
+                    {...field}
+                    disabled={isLoading}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -76,17 +76,24 @@ function AddCourseForm() {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter course description" {...field} />
+                  <Input
+                    placeholder="Enter course description"
+                    {...field}
+                    disabled={isLoading}
+                  />
                 </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          <Button type="submit" className="w-full max-w-sm">
-            Add
-          </Button>
+          {isLoading ? (
+            <ButtonLoading />
+          ) : (
+            <Button type="submit" className="w-full max-w-sm">
+              Add
+            </Button>
+          )}
         </form>
       </Form>
     </div>

@@ -1,18 +1,15 @@
 import CourseCard from "@/components/CourseCard";
 import PageHeading from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
-import Course from "@/types/Course";
+import { Course, getCourses } from "@/services/apiCourse";
 import { Plus } from "lucide-react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 
-export const API_URL = "https://my-json-server.typicode.com/michaeleii/stud";
-
 export const getStaticProps: GetStaticProps<{
   courses: Course[];
 }> = async () => {
-  const res = await fetch(`${API_URL}/courses`);
-  const courses = await res.json();
+  const courses = await getCourses();
   return {
     props: { courses },
   };

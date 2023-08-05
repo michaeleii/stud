@@ -1,6 +1,4 @@
-import Course from "@/types/Course";
-
-export const courses: Course[] = [
+export const courses = [
   {
     id: "797f3d71-7240-4b59-b207-356175499858",
     name: "Introduction to Programming",

@@ -2,9 +2,9 @@ import { createCourse as createCourseApi } from "@/services/apiCourse";
 import { useMutation } from "@tanstack/react-query";
 
 export function useCreateCourse() {
-  const { mutate, isLoading } = useMutation({
+  const { mutate: createCourse, isLoading } = useMutation({
     mutationKey: ["createCourse"],
     mutationFn: createCourseApi,
   });
-  return { mutate, isLoading };
+  return { createCourse, isLoading };
 }

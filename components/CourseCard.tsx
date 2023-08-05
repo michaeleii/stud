@@ -6,11 +6,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import Course from "@/types/Course";
 
-function CourseCard({ course }: { course: Course }) {
-  const tasksDone = course.tasks.filter((task) => task.done).length;
-  const tasksTotal = course.tasks.length;
+function CourseCard({ course }: { course: { name: string } }) {
+  const tasksDone = 3;
+  const tasksTotal = 5;
   return (
     <Card className="flex h-full flex-col">
       <CardHeader>
