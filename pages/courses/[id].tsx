@@ -25,7 +25,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 function CourseDetails({ course }: { course: Course }) {
-  console.log(courses);
   return (
     <>
       <h1>{course.name}</h1>
