@@ -3,8 +3,8 @@ import type { AppProps } from "next/app";
 
 import { Inter } from "next/font/google";
 import Nav from "@/components/Nav";
-import { ModeToggle } from "@/components/mode-toggle";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
