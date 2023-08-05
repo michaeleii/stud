@@ -1,7 +1,9 @@
+import PageHeading from "@/components/PageHeading";
+
 function Study() {
   return (
     <div>
-      <h1>Study</h1>
+      <PageHeading>Study</PageHeading>
     </div>
   );
 }

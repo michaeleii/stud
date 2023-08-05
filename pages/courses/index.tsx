@@ -1,4 +1,5 @@
 import CourseCard from "@/components/CourseCard";
+import PageHeading from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
 import { courses } from "@/data/courses";
 import { Plus } from "lucide-react";
@@ -8,7 +9,7 @@ function Courses() {
   return (
     <>
       <div className="flex items-center gap-5">
-        <h1>Courses ({courses.length})</h1>
+        <PageHeading>Courses ({courses.length})</PageHeading>
         <Button className="ml-auto space-x-2">
           <Plus />
           <span>Add new course</span>

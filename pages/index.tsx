@@ -1,7 +1,9 @@
+import PageHeading from "@/components/PageHeading";
+
 export default function Home() {
   return (
     <>
-      <h1>Dashboard</h1>
+      <PageHeading>Dashboard</PageHeading>
     </>
   );
 }
