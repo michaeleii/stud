@@ -23,9 +23,12 @@ function Courses({ courses }: InferGetStaticPropsType<typeof getStaticProps>) {
     <>
       <div className="flex items-center gap-5">
         <PageHeading>Courses ({courses.length})</PageHeading>
-        <Button className="ml-auto space-x-2">
-          <Plus />
-          <span>Add new course</span>
+
+        <Button className="ml-auto space-x-2" asChild>
+          <Link href="/courses/add">
+            <Plus />
+            <span>Add new course</span>
+          </Link>
         </Button>
       </div>
 
