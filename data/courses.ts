@@ -2,8 +2,9 @@ import Course from "@/types/Course";
 
 export const courses: Course[] = [
   {
-    id: crypto.randomUUID(),
+    id: "797f3d71-7240-4b59-b207-356175499858",
     name: "Introduction to Programming",
+    description: "Learn the basics of programming and software development.",
     tasks: [
       {
         name: "Variables and Data Types",
@@ -25,8 +26,9 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: crypto.randomUUID(),
+    id: "e0dcbb6c-553a-4f71-bd20-2c0d814538e3",
     name: "Web Development Fundamentals",
+    description: "Study the basics of web development.",
     tasks: [
       {
         name: "HTML",
@@ -47,8 +49,9 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: crypto.randomUUID(),
+    id: "5ee1380b-a275-4443-b1e6-299089a31c13",
     name: "Data Structures and Algorithms",
+    description: "Learn about data structures and algorithms.",
     tasks: [
       {
         name: "Arrays",
@@ -68,8 +71,9 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: crypto.randomUUID(),
+    id: "b0737050-b23a-401b-be72-cab8f5abc17a",
     name: "Object-Oriented Programming",
+    description: "Study the fundamentals of object-oriented programming.",
     tasks: [
       {
         name: "Classes and Objects",
@@ -89,8 +93,9 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: crypto.randomUUID(),
+    id: "aac53210-a3ed-4628-967e-56a9b7886807",
     name: "Database Design and Management",
+    description: "Learn about relational databases and SQL.",
     tasks: [
       {
         name: "Relational Databases",
@@ -111,8 +116,9 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: crypto.randomUUID(),
+    id: "e942b82b-1cea-4cbc-9e88-cb0ea71f95e7",
     name: "Frontend Frameworks",
+    description: "Study popular frontend frameworks.",
     tasks: [
       {
         name: "React",
@@ -133,8 +139,9 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: crypto.randomUUID(),
+    id: "6dd689b1-56b2-4ac2-96f4-93719f37f176",
     name: "Backend Development",
+    description: "Learn how to build server-side applications.",
     tasks: [
       {
         name: "Node.js",
@@ -155,8 +162,9 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: crypto.randomUUID(),
+    id: "393a05fe-2435-4cca-8228-577c124691ea",
     name: "Mobile App Development",
+    description: "Study the basics of mobile app development.",
     tasks: [
       {
         name: "Android Development",
