@@ -9,7 +9,7 @@ import Link from "next/link";
 
 function Nav() {
   return (
-    <NavigationMenu orientation="vertical">
+    <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
