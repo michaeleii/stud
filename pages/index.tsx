@@ -1,9 +1,9 @@
-import PageHeading from "@/components/PageHeading";
+import Greeting from "@/components/Greeting";
 
 export default function Home() {
   return (
     <>
-      <PageHeading>Dashboard</PageHeading>
+      <Greeting />
     </>
   );
 }
