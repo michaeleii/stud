@@ -2,6 +2,7 @@ import CourseCard from "@/components/CourseCard";
 import PageHeading from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
 import { Course, getCourses } from "@/services/apiCourse";
+import { seedDB } from "@/services/seedDb";
 import { Plus } from "lucide-react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
@@ -21,6 +22,9 @@ function Courses({ courses }: InferGetStaticPropsType<typeof getStaticProps>) {
       <div className="flex items-center gap-5">
         <PageHeading>Courses ({courses.length})</PageHeading>
 
+        {/* <Button className="space-x-2" onClick={seedDB}>
+          Seed database
+        </Button> */}
         <Button className="ml-auto space-x-2" asChild>
           <Link href="/courses/add">
             <Plus />
