@@ -25,7 +25,8 @@ function Layout({ children }: { children: React.ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <QueryClientProvider client={queryClient}>
         <div className={`${inter.className}`}>
-          <div className="flex items-center p-5">
+          <div className="flex items-center border-b p-5">
+            <div className="mr-5 text-3xl font-bold">stud.</div>
             <Nav />
             <div className="ml-auto">
               <ModeToggle />

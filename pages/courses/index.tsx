@@ -33,7 +33,7 @@ function Courses({ courses }: InferGetStaticPropsType<typeof getStaticProps>) {
         </Button>
       </div>
 
-      <section className="p-5 pt-10 xl:p-10">
+      <section className="pt-10">
         <ul className="grid-rows-auto grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
           {courses.map((course) => (
             <li key={course.id}>

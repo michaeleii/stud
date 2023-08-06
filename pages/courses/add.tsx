@@ -16,6 +16,7 @@ import PageHeading from "@/components/PageHeading";
 import { useForm } from "react-hook-form";
 import { useCreateCourse } from "@/hooks/course/useCreateCourse";
 import ButtonLoading from "@/components/ButtonLoading";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -50,7 +51,7 @@ function AddCourseForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="max-w-md space-y-8 p-10"
+          className="mt-5 max-w-md space-y-8"
         >
           <FormField
             control={form.control}
@@ -60,7 +61,7 @@ function AddCourseForm() {
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter course name"
+                    placeholder="What is the name of your course?"
                     {...field}
                     disabled={isLoading}
                   />
@@ -76,9 +77,9 @@ function AddCourseForm() {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Enter course description"
+                  <Textarea
                     {...field}
+                    placeholder="What is your course about?"
                     disabled={isLoading}
                   />
                 </FormControl>
@@ -90,7 +91,7 @@ function AddCourseForm() {
           {isLoading ? (
             <ButtonLoading className="w-full" />
           ) : (
-            <Button type="submit" className="w-full max-w-sm">
+            <Button type="submit" className="w-full">
               Add
             </Button>
           )}
