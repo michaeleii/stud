@@ -15,8 +15,6 @@ import { Textarea } from "./ui/textarea";
 import ButtonLoading from "./ButtonLoading";
 import { Button } from "./ui/button";
 import { DialogFooter } from "./ui/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
-
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -83,13 +81,7 @@ function CreateCourseForm() {
           )}
         />
         <DialogFooter>
-          {isLoading ? (
-            <ButtonLoading />
-          ) : (
-            <DialogClose asChild>
-              <Button type="submit">Add</Button>
-            </DialogClose>
-          )}
+          {isLoading ? <ButtonLoading /> : <Button type="submit">Add</Button>}
         </DialogFooter>
       </form>
     </Form>

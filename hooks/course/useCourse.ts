@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 export function useCourse() {
   const router = useRouter();
   const id = router.query.id;
-  if (!id) throw new Error("Missing id");
   const { data: course, isLoading } = useQuery({
     queryKey: ["course"],
-    queryFn: () => getCourse(+id),
+    queryFn: () => getCourse(Number(id)),
+    enabled: !!id,
   });
   return { course, isLoading };
 }
