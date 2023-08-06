@@ -7,6 +7,19 @@ import { Plus } from "lucide-react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import CreateCourseForm from "@/components/CreateCourseForm";
+
 export const getStaticProps: GetStaticProps<{
   courses: Course[];
 }> = async () => {
@@ -25,12 +38,23 @@ function Courses({ courses }: InferGetStaticPropsType<typeof getStaticProps>) {
         {/* <Button className="space-x-2" onClick={seedDB}>
           Seed database
         </Button> */}
-        <Button className="ml-auto space-x-2" asChild>
-          <Link href="/courses/add">
-            <Plus />
-            <span>Add new course</span>
-          </Link>
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="ml-auto space-x-2">
+              <Plus className="h-5 w-5 stroke-primary-foreground" />
+              <span>Add new course</span>
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Add a new course</DialogTitle>
+              <DialogDescription>
+                Create a new course here. Click create when you&apos;re done.
+              </DialogDescription>
+            </DialogHeader>
+            <CreateCourseForm />
+          </DialogContent>
+        </Dialog>
       </div>
 
       <section className="pt-10">
