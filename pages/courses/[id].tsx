@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 
 import PageHeading from "@/components/PageHeading";
 import { Course, getCourse, getCourses } from "@/services/apiCourse";
@@ -17,7 +17,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params.id;
   if (!id || typeof id !== "string") return { props: {} };
 
-  const course = await getCourse(id);
+  const course = await getCourse(+id);
 
   return {
     props: { course },
