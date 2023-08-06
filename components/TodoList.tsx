@@ -1,6 +1,18 @@
+import { useState } from "react";
 import { Card } from "./ui/card";
 import { Checkbox } from "./ui/checkbox";
 import { Separator } from "./ui/separator";
+import { Todo as ITodo } from "@/pages/courses/[id]";
+import { Button } from "./ui/button";
+import { PencilIcon, TrashIcon } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function Heading({ children }: { children: React.ReactNode }) {
   return <h3 className="my-3 text-2xl font-semibold">{children}</h3>;
@@ -12,18 +24,19 @@ function List({ children }: { children: React.ReactNode }) {
   return <ul className="flex flex-col gap-5">{children}</ul>;
 }
 
-function Item({
-  children,
-  checked,
-}: {
-  children: React.ReactNode;
-  checked?: boolean;
-}) {
+function Item({ todo }: { todo: ITodo }) {
+  const [isChecked, setIsChecked] = useState(todo.isCompleted);
   return (
-    <li>
-      <Card className="flex items-center gap-5 p-5">
-        <Checkbox checked={checked} />
-        <h4 className="text-xl">{children}</h4>
+    <li className="flex items-center">
+      <Card
+        className={
+          "flex flex-1 items-center gap-5 p-5 hover:cursor-pointer" +
+          (isChecked ? " bg-accent" : "")
+        }
+        onClick={() => setIsChecked(!isChecked)}
+      >
+        <Checkbox checked={isChecked} />
+        <h4 className="text-xl">{todo.name}</h4>
       </Card>
     </li>
   );

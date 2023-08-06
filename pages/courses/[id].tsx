@@ -8,7 +8,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-interface Todo {
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+export interface Todo {
   id: number;
   name: string;
   isCompleted: boolean;
@@ -57,7 +66,7 @@ function CourseDetails() {
 
         <Todo.List>
           {todos.map((todo) => (
-            <Todo.Item key={todo.id}>{todo.name}</Todo.Item>
+            <Todo.Item key={todo.id} todo={todo} />
           ))}
         </Todo.List>
       </Todo>
