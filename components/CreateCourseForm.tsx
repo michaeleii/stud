@@ -15,6 +15,7 @@ import { Textarea } from "./ui/textarea";
 import ButtonLoading from "./ButtonLoading";
 import { Button } from "./ui/button";
 import { DialogFooter } from "./ui/dialog";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -45,10 +46,7 @@ function CreateCourseForm() {
   }
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-5 max-w-md space-y-8"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <FormField
           control={form.control}
           name="name"
@@ -85,7 +83,13 @@ function CreateCourseForm() {
           )}
         />
         <DialogFooter>
-          {isLoading ? <ButtonLoading /> : <Button type="submit">Add</Button>}
+          {isLoading ? (
+            <ButtonLoading />
+          ) : (
+            <DialogClose asChild>
+              <Button type="submit">Add</Button>
+            </DialogClose>
+          )}
         </DialogFooter>
       </form>
     </Form>

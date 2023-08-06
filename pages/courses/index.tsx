@@ -1,43 +1,30 @@
 import CourseCard from "@/components/CourseCard";
 import PageHeading from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
-import { Course, getCourses } from "@/services/apiCourse";
-import { seedDB } from "@/services/seedDb";
 import { Plus } from "lucide-react";
-import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import CreateCourseForm from "@/components/CreateCourseForm";
+import { useCourses } from "@/hooks/course/useCourses";
 
-export const getStaticProps: GetStaticProps<{
-  courses: Course[];
-}> = async () => {
-  const courses = await getCourses();
-  return {
-    props: { courses },
-  };
-};
-
-function Courses({ courses }: InferGetStaticPropsType<typeof getStaticProps>) {
+function Courses() {
+  const { courses, isLoading } = useCourses();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div className="flex items-center gap-5">
-        <PageHeading>Courses ({courses.length})</PageHeading>
-
-        {/* <Button className="space-x-2" onClick={seedDB}>
-          Seed database
-        </Button> */}
+        <PageHeading>Courses ({courses?.length})</PageHeading>
         <Dialog>
           <DialogTrigger asChild>
             <Button className="ml-auto space-x-2">
@@ -59,13 +46,17 @@ function Courses({ courses }: InferGetStaticPropsType<typeof getStaticProps>) {
 
       <section className="pt-10">
         <ul className="grid-rows-auto grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {courses.map((course) => (
-            <li key={course.id}>
-              <Link href={`/courses/${course.id}`}>
-                <CourseCard course={course} />
-              </Link>
-            </li>
-          ))}
+          {courses && courses.length !== 0 ? (
+            courses.map((course) => (
+              <li key={course.id}>
+                <Link href={`/courses/${course.id}`}>
+                  <CourseCard course={course} />
+                </Link>
+              </li>
+            ))
+          ) : (
+            <div className="text-center">You have no courses 😅</div>
+          )}
         </ul>
       </section>
     </>
