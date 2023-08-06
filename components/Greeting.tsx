@@ -13,9 +13,9 @@ const currentHour = currentDate.getHours();
 function getTimeOfDay(hour: number) {
   if (hour >= 5 && hour < 12) {
     return "morning";
-  } else if (hour >= 12 && hour < 17) {
+  } else if (hour >= 12 && hour < 15) {
     return "afternoon";
-  } else if (hour >= 17 && hour < 24) {
+  } else if (hour >= 15 && hour < 20) {
     return "evening";
   } else {
     return "night";
