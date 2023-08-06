@@ -1,14 +1,14 @@
-import { Sheet } from "lucide-react";
 import { Button } from "./ui/button";
 import {
-  SheetTrigger,
+  Sheet,
+  SheetClose,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
   SheetDescription,
   SheetFooter,
-  SheetClose,
-} from "./ui/sheet";
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { useDeleteCourse } from "@/hooks/course/useDeleteCourse";
 
 function DeleteSheet({ id }: { id: number }) {

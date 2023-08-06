@@ -6,8 +6,8 @@ export function useCreateCourse() {
   const { mutate: createCourse, isLoading } = useMutation({
     mutationKey: ["createCourse"],
     mutationFn: createCourseApi,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["courses"]);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(["courses"]);
     },
   });
   return { createCourse, isLoading };
