@@ -4,7 +4,7 @@ export type Course = Awaited<ReturnType<typeof getCourse>>;
 export type PartialCourse = Omit<Course, "id" | "created_at">;
 
 export async function createCourse(course: PartialCourse) {
-  const { error } = await supabase.from("courses").insert([course]);
+  const { error } = await supabase.from("course").insert([course]);
   if (error) throw error;
 }
 
