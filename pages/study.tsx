@@ -1,10 +1,4 @@
-import PageHeading from "@/components/PageHeading";
-
 function Study() {
-  return (
-    <div>
-      <PageHeading>Study</PageHeading>
-    </div>
-  );
+  return <div></div>;
 }
 export default Study;
