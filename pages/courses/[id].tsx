@@ -13,7 +13,7 @@ function CourseDetails() {
 
       <h2 className="my-3 text-xl">{course.description}</h2>
       <div className="mt-5 space-x-2">
-        <EditCourseSheet course={course} />
+        <EditCourseSheet key={course.id} course={course} />
         <DeleteSheet id={course.id} />
       </div>
     </>

@@ -18,8 +18,8 @@ import { useUpdateCourse } from "@/hooks/course/useUpdateCourse";
 
 function EditCourseSheet({ course }: { course: Course }) {
   const { updateCourse, isLoading } = useUpdateCourse();
-  const [name, setName] = useState(course.name);
-  const [description, setDescription] = useState(course.description);
+  const [name, setName] = useState(() => course.name);
+  const [description, setDescription] = useState(() => course.description);
   const onSubmit = () => {
     if (!name || !description) return;
     if (name === course.name && description === course.description) return;
