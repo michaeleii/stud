@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 
 function CourseCard({ course }: { course: { name: string } }) {
-  const [progress, setProgress] = useState(13);
+  const [progress, setProgress] = useState(0);
   const tasksDone = 3;
   const tasksTotal = 5;
   useEffect(() => {
