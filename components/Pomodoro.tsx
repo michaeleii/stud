@@ -43,7 +43,7 @@ export default function Pomodoro() {
       </TabsContent>
       <TabsContent value="long-break">
         <CountdownTimer
-          initialTime={10}
+          initialTime={15 * 60}
           finishedElement={
             <div className="text-xl font-bold text-red-800 dark:text-red-400">
               Time to study!
