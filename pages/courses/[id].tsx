@@ -2,20 +2,10 @@ import PageHeading from "@/components/PageHeading";
 import EditCourseSheet from "@/components/EditCourseSheet";
 import { useCourse } from "@/hooks/course/useCourse";
 import DeleteSheet from "@/components/DeleteSheet";
-import { Separator } from "@/components/ui/separator";
 import Todo from "@/components/TodoList";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export interface Todo {
   id: number;
