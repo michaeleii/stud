@@ -1,47 +1,62 @@
 import CourseCard from "@/components/CourseCard";
 import PageHeading from "@/components/PageHeading";
 import { Button } from "@/components/ui/button";
-import { Course, getCourses } from "@/services/apiCourse";
-import { seedDB } from "@/services/seedDb";
 import { Plus } from "lucide-react";
-import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 
-export const getStaticProps: GetStaticProps<{
-  courses: Course[];
-}> = async () => {
-  const courses = await getCourses();
-  return {
-    props: { courses },
-  };
-};
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
-function Courses({ courses }: InferGetStaticPropsType<typeof getStaticProps>) {
+import CreateCourseForm from "@/components/CreateCourseForm";
+import { useCourses } from "@/hooks/course/useCourses";
+
+function Courses() {
+  const { courses, isLoading } = useCourses();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div className="flex items-center gap-5">
-        <PageHeading>Courses ({courses.length})</PageHeading>
-
-        {/* <Button className="space-x-2" onClick={seedDB}>
-          Seed database
-        </Button> */}
-        <Button className="ml-auto space-x-2" asChild>
-          <Link href="/courses/add">
-            <Plus />
-            <span>Add new course</span>
-          </Link>
-        </Button>
+        <PageHeading>Courses ({courses?.length})</PageHeading>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="ml-auto space-x-2">
+              <Plus className="h-5 w-5 stroke-primary-foreground" />
+              <span>Add new course</span>
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Add a new course</DialogTitle>
+              <DialogDescription>
+                Create a new course here. Click create when you&apos;re done.
+              </DialogDescription>
+            </DialogHeader>
+            <CreateCourseForm />
+          </DialogContent>
+        </Dialog>
       </div>
 
       <section className="pt-10">
         <ul className="grid-rows-auto grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {courses.map((course) => (
-            <li key={course.id}>
-              <Link href={`/courses/${course.id}`}>
-                <CourseCard course={course} />
-              </Link>
-            </li>
-          ))}
+          {courses && courses.length !== 0 ? (
+            courses.map((course) => (
+              <li key={course.id}>
+                <Link href={`/courses/${course.id}`}>
+                  <CourseCard course={course} />
+                </Link>
+              </li>
+            ))
+          ) : (
+            <div className="text-center">You have no courses 😅</div>
+          )}
         </ul>
       </section>
     </>
