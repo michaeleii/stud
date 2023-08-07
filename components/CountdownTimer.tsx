@@ -14,11 +14,11 @@ const formatTime = (seconds: number) => {
 
 function CountdownTimer({
   initialTime,
-  finishedText,
+  finishedElement,
   colors,
 }: {
   initialTime: number;
-  finishedText: string;
+  finishedElement: React.ReactElement;
   colors: {
     0: `#${string}`;
   } & {
@@ -28,14 +28,11 @@ function CountdownTimer({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [key, setKey] = useState(0);
 
   const children = ({ remainingTime }: { remainingTime: number }) => {
     if (remainingTime === 0) {
-      return (
-        <div className="text-xl font-bold text-emerald-500 dark:text-emerald-300">
-          {finishedText}
-        </div>
-      );
+      return finishedElement;
     }
     return (
       <div className="text-5xl font-bold">{formatTime(remainingTime)}</div>
@@ -46,6 +43,7 @@ function CountdownTimer({
       <CardContent>
         <div className="my-5 flex justify-center">
           <CountdownCircleTimer
+            key={key}
             strokeWidth={19}
             size={250}
             isPlaying={isPlaying}
@@ -60,6 +58,7 @@ function CountdownTimer({
         </div>
 
         <TimerButton
+          setKey={setKey}
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
           isStarted={isStarted}
