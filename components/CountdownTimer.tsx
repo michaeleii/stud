@@ -50,7 +50,7 @@ function CountdownTimer({
             duration={initialTime}
             trailStrokeWidth={18}
             colors={colors}
-            colorsTime={[initialTime, 5, 2, 0]}
+            colorsTime={[initialTime, 0]}
             onComplete={() => setIsCompleted(true)}
           >
             {children}

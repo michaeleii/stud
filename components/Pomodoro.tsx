@@ -7,8 +7,9 @@ type Colors = {
   1: `#${string}`;
 } & `#${string}`[];
 
-const focusColors: Colors = ["#A30000", "#f97316", "#F7B801", "#10b981"];
-const breakColors: Colors = ["#10b981", "#F7B801", "#f97316", "#A30000"];
+const focusColors: Colors = ["#dc2626", "#dc2626"];
+const shortBreakColors: Colors = ["#22c55e", "#22c55e"];
+const longBreakColors: Colors = ["#3b82f6", "#3b82f6"];
 
 export default function Pomodoro() {
   return (
@@ -38,7 +39,7 @@ export default function Pomodoro() {
               Time to study!
             </div>
           }
-          colors={breakColors}
+          colors={shortBreakColors}
         />
       </TabsContent>
       <TabsContent value="long-break">
@@ -49,7 +50,7 @@ export default function Pomodoro() {
               Time to study!
             </div>
           }
-          colors={breakColors}
+          colors={longBreakColors}
         />
       </TabsContent>
     </Tabs>
