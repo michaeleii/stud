@@ -68,7 +68,7 @@ function CourseDetails() {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            {isCreatingTask ? <ButtonLoading /> : <Button>Add</Button>}
+            {isCreatingTask ? <ButtonLoading text="" /> : <Button>Add</Button>}
           </form>
 
           <Todo.List>
@@ -77,7 +77,7 @@ function CourseDetails() {
                 <Todo.Item key={task.id} todo={task}>
                   <div className="ml-auto space-x-2">
                     {isDeletingTask ? (
-                      <ButtonLoading />
+                      <ButtonLoading text="" />
                     ) : (
                       <Button
                         variant="destructive"
