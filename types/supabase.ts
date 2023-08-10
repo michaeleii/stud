@@ -30,6 +30,37 @@ export interface Database {
         }
         Relationships: []
       }
+      task: {
+        Row: {
+          course_id: number
+          created_at: string
+          id: number
+          is_completed: boolean
+          name: string
+        }
+        Insert: {
+          course_id: number
+          created_at?: string
+          id?: number
+          is_completed?: boolean
+          name: string
+        }
+        Update: {
+          course_id?: number
+          created_at?: string
+          id?: number
+          is_completed?: boolean
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_course_id_fkey"
+            columns: ["course_id"]
+            referencedRelation: "course"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never

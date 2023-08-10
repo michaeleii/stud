@@ -1,6 +1,6 @@
 import supabase from "./supabase";
 
-export type Course = Awaited<ReturnType<typeof getCourse>>;
+export type Course = Awaited<ReturnType<typeof getCourses>>[0];
 export type PartialCourse = Omit<Course, "id" | "created_at">;
 
 export async function createCourse(course: PartialCourse) {
@@ -14,7 +14,7 @@ export async function getCourses() {
   return data;
 }
 
-export async function getCourse(id: number) {
+export async function getCourse(id: Course["id"]) {
   const { data, error } = await supabase
     .from("course")
     .select("*")
@@ -24,12 +24,12 @@ export async function getCourse(id: number) {
   return data;
 }
 
-export async function updateCourse(id: number, course: PartialCourse) {
+export async function updateCourse(id: Course["id"], course: PartialCourse) {
   const { error } = await supabase.from("course").update(course).match({ id });
   if (error) throw error;
 }
 
-export async function deleteCourse(id: number) {
+export async function deleteCourse(id: Course["id"]) {
   const { error } = await supabase.from("course").delete().match({ id });
   if (error) throw error;
 }
