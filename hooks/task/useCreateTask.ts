@@ -8,7 +8,6 @@ import { Course } from "@/services/apiCourse";
 export function useCreateTask() {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const id = router.query.id;
   const { mutate: createTask, isLoading: isCreatingTask } = useMutation({
     mutationFn: ({
       name,
