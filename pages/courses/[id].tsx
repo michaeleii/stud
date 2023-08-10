@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import { useTasks } from "@/hooks/task/useTasks";
+import { useCreateTask } from "@/hooks/task/useCreateTask";
 
 export interface Todo {
   id: number;
@@ -18,6 +19,7 @@ export interface Todo {
 function CourseDetails() {
   const { course, isLoading } = useCourse();
   const { tasks, isLoading: isLoadingTasks } = useTasks();
+  const { createTask, isCreatingTask } = useCreateTask();
 
   const [name, setName] = useState("");
   if (isLoading) return <div>Loading...</div>;
@@ -32,13 +34,13 @@ function CourseDetails() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name.trim()) return;
+
     const newTodo = {
-      id: Math.floor(Math.random() * 1000),
       name,
-      isCompleted: false,
+      course_id: course.id,
     };
     //CREATE
-    // setTodos([newTodo, ...todos]);
+    createTask(newTodo);
     setName("");
   };
   return (
@@ -63,7 +65,7 @@ function CourseDetails() {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <Button>Add</Button>
+            <Button disabled={isCreatingTask}>Add</Button>
           </form>
 
           <Todo.List>
