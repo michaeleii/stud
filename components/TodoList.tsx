@@ -4,8 +4,8 @@ import { Checkbox } from "./ui/checkbox";
 import { Trash2 } from "lucide-react";
 import { Pen } from "lucide-react";
 
-import { Todo as ITodo } from "@/pages/courses/[id]";
 import { Button } from "./ui/button";
+import { Task } from "@/services/apiTask";
 
 function Heading({ children }: { children: React.ReactNode }) {
   return <h3 className="my-3 text-2xl font-semibold">{children}</h3>;
@@ -17,8 +17,8 @@ function List({ children }: { children: React.ReactNode }) {
   return <ul className="flex flex-col gap-5 ">{children}</ul>;
 }
 
-function Item({ todo, children }: { todo: ITodo; children: React.ReactNode }) {
-  const [isChecked, setIsChecked] = useState(todo.isCompleted);
+function Item({ todo, children }: { todo: Task; children: React.ReactNode }) {
+  const [isChecked, setIsChecked] = useState(todo.is_completed);
   return (
     <li className="flex items-center">
       <Card

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
+import { useTasks } from "@/hooks/task/useTasks";
 
 export interface Todo {
   id: number;
@@ -16,14 +17,17 @@ export interface Todo {
 
 function CourseDetails() {
   const { course, isLoading } = useCourse();
-  const [todos, setTodos] = useState([] as Todo[]);
+  const { tasks, isLoading: isLoadingTasks } = useTasks();
+
   const [name, setName] = useState("");
   if (isLoading) return <div>Loading...</div>;
+
   if (!course) return <div className="text-center">Course not found</div>;
 
-  const handleDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  //DELETE
+  // const handleDelete = (id: number) => {
+  //   setTodos(todos.filter((todo) => todo.id !== id));
+  // };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +37,8 @@ function CourseDetails() {
       name,
       isCompleted: false,
     };
-    setTodos([newTodo, ...todos]);
+    //CREATE
+    // setTodos([newTodo, ...todos]);
     setName("");
   };
   return (
@@ -47,36 +52,40 @@ function CourseDetails() {
           <DeleteSheet id={course.id} />
         </div>
       </div>
+      {isLoadingTasks ? (
+        <div>Loading...</div>
+      ) : (
+        <Todo>
+          <Todo.Heading>Tasks</Todo.Heading>
+          <form className="mb-4 flex gap-2" onSubmit={handleSubmit}>
+            <Input
+              placeholder="What do you need to get done?"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Button>Add</Button>
+          </form>
 
-      <Todo>
-        <Todo.Heading>Tasks</Todo.Heading>
-        <form className="mb-4 flex gap-2" onSubmit={handleSubmit}>
-          <Input
-            placeholder="What do you need to get done?"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Button>Add</Button>
-        </form>
-
-        <Todo.List>
-          {todos.map((todo) => (
-            <Todo.Item key={todo.id} todo={todo}>
-              <div className="ml-auto space-x-2">
-                <Button
-                  variant="destructive"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete(todo.id);
-                  }}
-                >
-                  <Trash2 />
-                </Button>
-              </div>
-            </Todo.Item>
-          ))}
-        </Todo.List>
-      </Todo>
+          <Todo.List>
+            {tasks &&
+              tasks.map((task) => (
+                <Todo.Item key={task.id} todo={task}>
+                  <div className="ml-auto space-x-2">
+                    <Button
+                      variant="destructive"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        // handleDelete(todo.id);
+                      }}
+                    >
+                      <Trash2 />
+                    </Button>
+                  </div>
+                </Todo.Item>
+              ))}
+          </Todo.List>
+        </Todo>
+      )}
     </div>
   );
 }

@@ -1,13 +1,14 @@
 import { Course } from "./apiCourse";
 import supabase from "./supabase";
 
-type Task = Awaited<ReturnType<typeof getTasks>>[0];
+export type Task = Awaited<ReturnType<typeof getTasks>>[0];
 
-async function getTasks(course_id: Course["id"]) {
+export async function getTasks(course_id: Course["id"]) {
   const { data, error } = await supabase
     .from("task")
     .select("*")
     .match({ course_id });
+
   if (error) throw error;
   return data;
 }
