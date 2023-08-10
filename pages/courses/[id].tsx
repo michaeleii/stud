@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import { useTasks } from "@/hooks/task/useTasks";
 import { useCreateTask } from "@/hooks/task/useCreateTask";
+import { useDeleteTask } from "@/hooks/task/useDeleteTask";
 
 export interface Todo {
   id: number;
@@ -20,6 +21,7 @@ function CourseDetails() {
   const { course, isLoading } = useCourse();
   const { tasks, isLoading: isLoadingTasks } = useTasks();
   const { createTask, isCreatingTask } = useCreateTask();
+  const { deleteTask, isDeletingTask } = useDeleteTask();
 
   const [name, setName] = useState("");
   if (isLoading) return <div>Loading...</div>;
@@ -27,9 +29,9 @@ function CourseDetails() {
   if (!course) return <div className="text-center">Course not found</div>;
 
   //DELETE
-  // const handleDelete = (id: number) => {
-  //   setTodos(todos.filter((todo) => todo.id !== id));
-  // };
+  const handleDelete = (id: number) => {
+    deleteTask(id);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,10 +76,11 @@ function CourseDetails() {
                 <Todo.Item key={task.id} todo={task}>
                   <div className="ml-auto space-x-2">
                     <Button
+                      disabled={isDeletingTask}
                       variant="destructive"
                       onClick={(e) => {
                         e.stopPropagation();
-                        // handleDelete(todo.id);
+                        handleDelete(task.id);
                       }}
                     >
                       <Trash2 />
