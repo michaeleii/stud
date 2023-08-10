@@ -10,6 +10,7 @@ import { Trash2 } from "lucide-react";
 import { useTasks } from "@/hooks/task/useTasks";
 import { useCreateTask } from "@/hooks/task/useCreateTask";
 import { useDeleteTask } from "@/hooks/task/useDeleteTask";
+import ButtonLoading from "@/components/ButtonLoading";
 
 export interface Todo {
   id: number;
@@ -67,7 +68,7 @@ function CourseDetails() {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <Button disabled={isCreatingTask}>Add</Button>
+            {isCreatingTask ? <ButtonLoading /> : <Button>Add</Button>}
           </form>
 
           <Todo.List>
@@ -75,16 +76,19 @@ function CourseDetails() {
               tasks.map((task) => (
                 <Todo.Item key={task.id} todo={task}>
                   <div className="ml-auto space-x-2">
-                    <Button
-                      disabled={isDeletingTask}
-                      variant="destructive"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(task.id);
-                      }}
-                    >
-                      <Trash2 />
-                    </Button>
+                    {isDeletingTask ? (
+                      <ButtonLoading />
+                    ) : (
+                      <Button
+                        variant="destructive"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(task.id);
+                        }}
+                      >
+                        <Trash2 />
+                      </Button>
+                    )}
                   </div>
                 </Todo.Item>
               ))}
