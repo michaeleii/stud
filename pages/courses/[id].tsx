@@ -6,6 +6,7 @@ import Todo from "@/components/TodoList";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Trash2 } from "lucide-react";
 
 export interface Todo {
   id: number;
@@ -19,6 +20,10 @@ function CourseDetails() {
   const [name, setName] = useState("");
   if (isLoading) return <div>Loading...</div>;
   if (!course) return <div className="text-center">Course not found</div>;
+
+  const handleDelete = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,7 +61,19 @@ function CourseDetails() {
 
         <Todo.List>
           {todos.map((todo) => (
-            <Todo.Item key={todo.id} todo={todo} />
+            <Todo.Item key={todo.id} todo={todo}>
+              <div className="ml-auto space-x-2">
+                <Button
+                  variant="destructive"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(todo.id);
+                  }}
+                >
+                  <Trash2 />
+                </Button>
+              </div>
+            </Todo.Item>
           ))}
         </Todo.List>
       </Todo>
