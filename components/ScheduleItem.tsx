@@ -33,7 +33,7 @@ function ScheduleItem({
 }) {
   return (
     <div className="flex flex-col">
-      <div className="flex items-center gap-2 text-lg font-medium tracking-tight">
+      <div className="text-md flex items-center gap-2 font-medium tracking-tight">
         <div
           className={`h-5 w-1 rounded-full ${
             variants[color as keyof Variants]
@@ -42,7 +42,7 @@ function ScheduleItem({
         {time}
       </div>
       <div className="flex items-center gap-5">
-        <div className="text-lg font-medium tracking-tight">{name}</div>
+        <div className="text-md font-medium tracking-tight">{name}</div>
       </div>
     </div>
   );

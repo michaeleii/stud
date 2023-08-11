@@ -53,7 +53,7 @@ function Dashboard() {
     });
 
   return (
-    <div className="mt-10 grid grid-cols-1 gap-5 xl:grid-cols-3">
+    <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-5 xl:grid-cols-3">
       <Card className="col-span-2">
         <CardHeader>
           <h3 className="text-sm font-medium tracking-tight">Study Time</h3>
@@ -62,7 +62,7 @@ function Dashboard() {
           <div className="text-2xl font-bold">chart</div>
         </CardContent>
       </Card>
-      <Card className="row-span-2 mx-auto pt-5">
+      <Card className="row-span-2 max-w-xs pt-5">
         <CardContent>
           <div className="flex justify-center">
             <Calendar
