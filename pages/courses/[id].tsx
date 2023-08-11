@@ -22,17 +22,11 @@ function CourseDetails() {
   const { course, isLoading } = useCourse();
   const { tasks, isLoading: isLoadingTasks } = useTasks();
   const { createTask, isCreatingTask } = useCreateTask();
-  const { deleteTask, isDeletingTask } = useDeleteTask();
 
   const [name, setName] = useState("");
   if (isLoading) return <div>Loading...</div>;
 
   if (!course) return <div className="text-center">Course not found</div>;
-
-  //DELETE
-  const handleDelete = (id: number) => {
-    deleteTask(id);
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,30 +62,12 @@ function CourseDetails() {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            {isCreatingTask ? <ButtonLoading /> : <Button>Add</Button>}
+            {isCreatingTask ? <ButtonLoading text="" /> : <Button>Add</Button>}
           </form>
 
           <Todo.List>
             {tasks &&
-              tasks.map((task) => (
-                <Todo.Item key={task.id} todo={task}>
-                  <div className="ml-auto space-x-2">
-                    {isDeletingTask ? (
-                      <ButtonLoading />
-                    ) : (
-                      <Button
-                        variant="destructive"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(task.id);
-                        }}
-                      >
-                        <Trash2 />
-                      </Button>
-                    )}
-                  </div>
-                </Todo.Item>
-              ))}
+              tasks.map((task) => <Todo.Item key={task.id} task={task} />)}
           </Todo.List>
         </Todo>
       )}

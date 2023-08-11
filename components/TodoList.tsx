@@ -6,6 +6,8 @@ import { Pen } from "lucide-react";
 
 import { Button } from "./ui/button";
 import { Task } from "@/services/apiTask";
+import { useDeleteTask } from "@/hooks/task/useDeleteTask";
+import ButtonLoading from "./ButtonLoading";
 
 function Heading({ children }: { children: React.ReactNode }) {
   return <h3 className="my-3 text-2xl font-semibold">{children}</h3>;
@@ -17,8 +19,13 @@ function List({ children }: { children: React.ReactNode }) {
   return <ul className="flex flex-col gap-5 ">{children}</ul>;
 }
 
-function Item({ todo, children }: { todo: Task; children: React.ReactNode }) {
-  const [isChecked, setIsChecked] = useState(todo.is_completed);
+function Item({ task }: { task: Task }) {
+  const [isChecked, setIsChecked] = useState(task.is_completed);
+  const { deleteTask, isDeletingTask } = useDeleteTask();
+
+  const handleDelete = (id: number) => {
+    deleteTask(id);
+  };
   return (
     <li className="flex items-center">
       <Card
@@ -30,9 +37,23 @@ function Item({ todo, children }: { todo: Task; children: React.ReactNode }) {
       >
         <Checkbox checked={isChecked} />
         <h4 className={"text-xl" + (isChecked ? " line-through" : "")}>
-          {todo.name}
+          {task.name}
         </h4>
-        {children}
+        <div className="ml-auto space-x-2">
+          {isDeletingTask ? (
+            <ButtonLoading text="" />
+          ) : (
+            <Button
+              variant="destructive"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(task.id);
+              }}
+            >
+              <Trash2 />
+            </Button>
+          )}
+        </div>
       </Card>
     </li>
   );
