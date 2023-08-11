@@ -22,7 +22,7 @@ export default function Pomodoro() {
 
       <TabsContent value="focus">
         <CountdownTimer
-          initialTime={25 * 60}
+          initialTime={3}
           finishedElement={
             <div className="text-xl font-bold text-emerald-800 dark:text-emerald-500">
               Time to take a break!

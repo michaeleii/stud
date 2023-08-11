@@ -29,12 +29,17 @@ function CountdownTimer({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [key, setKey] = useState(0);
 
   // Play sound when timer is completed
-  const audio = new Audio("/cuckoo.mp3");
+
+  useEffect(() => {
+    setAudio(new Audio("/cuckoo.mp3"));
+  }, []);
+
   const timesUpSound = () => {
-    audio.play();
+    audio?.play();
   };
 
   const children = ({ remainingTime }: { remainingTime: number }) => {
