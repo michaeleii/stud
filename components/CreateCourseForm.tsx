@@ -15,6 +15,8 @@ import { Textarea } from "./ui/textarea";
 import ButtonLoading from "./ButtonLoading";
 import { Button } from "./ui/button";
 import { DialogFooter } from "./ui/dialog";
+
+import { SelectComponent } from "./ui/select";
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -22,7 +24,24 @@ const formSchema = z.object({
   description: z.string().min(2, {
     message: "Description must be at least 2 characters.",
   }),
+  weekdays: z.array(
+    z.object({
+      value: z.number(),
+      label: z.string(),
+    })
+  ),
+  time: z.string(),
 });
+
+const dayOfWeekList = [
+  { value: 0, label: "Sunday" },
+  { value: 1, label: "Monday" },
+  { value: 2, label: "Tuesday" },
+  { value: 3, label: "Wednesday" },
+  { value: 4, label: "Thursday" },
+  { value: 5, label: "Friday" },
+  { value: 6, label: "Saturday" },
+];
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -38,8 +57,12 @@ function CreateCourseForm() {
   function onSubmit(values: FormValues) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    const { name, description } = values;
+    const { name, description, weekdays, time } = values;
     const newCourse = { name, description };
+    console.log({
+      time: time,
+      weekdays,
+    });
     createCourse(newCourse);
   }
   return (
@@ -76,6 +99,42 @@ function CreateCourseForm() {
                 />
               </FormControl>
 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="weekdays"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>When do you have your course?</FormLabel>
+              <FormControl>
+                <SelectComponent
+                  createAble={false}
+                  isMulti={true}
+                  options={dayOfWeekList}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="time"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>When time do you have your course?</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="What is your course about?"
+                  disabled={isLoading}
+                  type="time"
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
