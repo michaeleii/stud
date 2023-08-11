@@ -24,9 +24,9 @@ function CourseCard({ course }: { course: CourseWithCount }) {
   return (
     <Card className="flex h-full flex-col">
       <CardHeader>
-        <CardTitle className="flex gap-2">
+        <CardTitle className="flex items-center gap-2">
           <div
-            className={`h-5 w-1 rounded-full ${
+            className={`h-full w-1 rounded-full ${
               variants[(course.color as keyof Variants) ?? "blue"]
             }`}
           ></div>
