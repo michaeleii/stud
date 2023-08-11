@@ -15,11 +15,12 @@ import {
 
 import CreateCourseForm from "@/components/CreateCourseForm";
 import { useCourses } from "@/hooks/course/useCourses";
+import LoadingPage from "@/components/LoadingPage";
 
 function Courses() {
   const { courses, isLoading } = useCourses();
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
   return (
     <>
