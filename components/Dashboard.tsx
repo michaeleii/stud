@@ -1,3 +1,13 @@
+import {
+  ResponsiveContainer,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  Bar,
+} from "recharts";
 import { useEffect, useState } from "react";
 import {
   Card,
@@ -11,11 +21,13 @@ import { Separator } from "./ui/separator";
 import { formatDistanceDay, timeParser } from "@/helpers/time";
 import { useCourses } from "@/hooks/course/useCourses";
 import ScheduleItem from "./ScheduleItem";
+import { useStudy } from "@/hooks/study/useStudy";
 import Loading from "./Loading";
 
 function Dashboard() {
   const { courses, isLoading } = useCourses();
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const { studyData, isLoadingStudy } = useStudy();
 
   let todayCourseData: {
     id: number;
@@ -59,7 +71,27 @@ function Dashboard() {
           <h3 className="text-sm font-medium tracking-tight">Study Time</h3>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">chart</div>
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={studyData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="day" />
+              <YAxis unit="min" />
+              <Tooltip />
+              <Legend iconType="circle" iconSize={13} />
+              <Bar
+                className="fill-red-400"
+                fill="#f87171"
+                dataKey="studyTime"
+                name="Study time"
+              />
+              <Bar
+                className="fill-blue-400"
+                fill="#60a5fa"
+                dataKey="breakTime"
+                name="Break time"
+              />
+            </BarChart>
+          </ResponsiveContainer>
         </CardContent>
       </Card>
       <Card className="row-span-2 max-w-xs pt-5">
