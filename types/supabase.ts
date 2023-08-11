@@ -15,18 +15,21 @@ export interface Database {
           description: string
           id: number
           name: string
+          schedule: Json | null
         }
         Insert: {
           created_at?: string | null
           description: string
           id?: number
           name: string
+          schedule?: Json | null
         }
         Update: {
           created_at?: string | null
           description?: string
           id?: number
           name?: string
+          schedule?: Json | null
         }
         Relationships: []
       }
