@@ -63,7 +63,7 @@ function CreateCourseForm() {
       time: time,
       weekdays,
     });
-    // createCourse(newCourse);
+    createCourse(newCourse);
   }
   return (
     <Form {...form}>
