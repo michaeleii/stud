@@ -6,10 +6,8 @@ import Todo from "@/components/TodoList";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Trash2 } from "lucide-react";
 import { useTasks } from "@/hooks/task/useTasks";
 import { useCreateTask } from "@/hooks/task/useCreateTask";
-import { useDeleteTask } from "@/hooks/task/useDeleteTask";
 import ButtonLoading from "@/components/ButtonLoading";
 
 export interface Todo {
