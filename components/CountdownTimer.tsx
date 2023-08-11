@@ -1,4 +1,5 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { useEffect, useState } from "react";
@@ -30,8 +31,15 @@ function CountdownTimer({
   const [isCompleted, setIsCompleted] = useState(false);
   const [key, setKey] = useState(0);
 
+  // Play sound when timer is completed
+  const audio = new Audio("/cuckoo.mp3");
+  const timesUpSound = () => {
+    audio.play();
+  };
+
   const children = ({ remainingTime }: { remainingTime: number }) => {
     if (remainingTime === 0) {
+      timesUpSound();
       return finishedElement;
     }
     return (
