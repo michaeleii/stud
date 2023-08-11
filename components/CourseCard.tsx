@@ -8,6 +8,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { CourseWithCount } from "@/services/apiCourse";
 import { useEffect, useState } from "react";
+import { Variants, variants } from "./ScheduleItem";
 
 function CourseCard({ course }: { course: CourseWithCount }) {
   const [progress, setProgress] = useState(0);
@@ -23,7 +24,14 @@ function CourseCard({ course }: { course: CourseWithCount }) {
   return (
     <Card className="flex h-full flex-col">
       <CardHeader>
-        <CardTitle>{course.name}</CardTitle>
+        <CardTitle className="flex gap-2">
+          <div
+            className={`h-5 w-1 rounded-full ${
+              variants[(course.color as keyof Variants) ?? "blue"]
+            }`}
+          ></div>
+          {course.name}
+        </CardTitle>
       </CardHeader>
       <CardContent></CardContent>
       <CardFooter className="mt-auto">

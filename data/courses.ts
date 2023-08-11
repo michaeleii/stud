@@ -3,6 +3,13 @@ export const courses = [
     id: "797f3d71-7240-4b59-b207-356175499858",
     name: "Introduction to Programming",
     description: "Learn the basics of programming and software development.",
+    color: "red",
+    schedule: [
+      {
+        day: "1",
+        time: "8:00",
+      },
+    ],
     tasks: [
       {
         name: "Variables and Data Types",
@@ -27,6 +34,17 @@ export const courses = [
     id: "e0dcbb6c-553a-4f71-bd20-2c0d814538e3",
     name: "Web Development Fundamentals",
     description: "Study the basics of web development.",
+    color: "blue",
+    schedule: [
+      {
+        day: "1",
+        time: "10:00",
+      },
+      {
+        day: "3",
+        time: "14:00",
+      },
+    ],
     tasks: [
       {
         name: "HTML",
@@ -50,6 +68,17 @@ export const courses = [
     id: "5ee1380b-a275-4443-b1e6-299089a31c13",
     name: "Data Structures and Algorithms",
     description: "Learn about data structures and algorithms.",
+    color: "green",
+    schedule: [
+      {
+        day: "2",
+        time: "8:00",
+      },
+      {
+        day: "4",
+        time: "14:00",
+      },
+    ],
     tasks: [
       {
         name: "Arrays",
@@ -72,6 +101,17 @@ export const courses = [
     id: "b0737050-b23a-401b-be72-cab8f5abc17a",
     name: "Object-Oriented Programming",
     description: "Study the fundamentals of object-oriented programming.",
+    color: "purple",
+    schedule: [
+      {
+        day: "2",
+        time: "10:00",
+      },
+      {
+        day: "4",
+        time: "16:00",
+      },
+    ],
     tasks: [
       {
         name: "Classes and Objects",
@@ -94,6 +134,17 @@ export const courses = [
     id: "aac53210-a3ed-4628-967e-56a9b7886807",
     name: "Database Design and Management",
     description: "Learn about relational databases and SQL.",
+    color: "orange",
+    schedule: [
+      {
+        day: "3",
+        time: "8:00",
+      },
+      {
+        day: "5",
+        time: "16:00",
+      },
+    ],
     tasks: [
       {
         name: "Relational Databases",
@@ -117,6 +168,17 @@ export const courses = [
     id: "e942b82b-1cea-4cbc-9e88-cb0ea71f95e7",
     name: "Frontend Frameworks",
     description: "Study popular frontend frameworks.",
+    color: "pink",
+    schedule: [
+      {
+        day: "4",
+        time: "8:00",
+      },
+      {
+        day: "5",
+        time: "10:00",
+      },
+    ],
     tasks: [
       {
         name: "React",
@@ -140,6 +202,17 @@ export const courses = [
     id: "6dd689b1-56b2-4ac2-96f4-93719f37f176",
     name: "Backend Development",
     description: "Learn how to build server-side applications.",
+    color: "yellow",
+    schedule: [
+      {
+        day: "1",
+        time: "16:00",
+      },
+      {
+        day: "5",
+        time: "14:00",
+      },
+    ],
     tasks: [
       {
         name: "Node.js",
@@ -163,6 +236,17 @@ export const courses = [
     id: "393a05fe-2435-4cca-8228-577c124691ea",
     name: "Mobile App Development",
     description: "Study the basics of mobile app development.",
+    color: "teal",
+    schedule: [
+      {
+        day: "2",
+        time: "16:00",
+      },
+      {
+        day: "3",
+        time: "10:00",
+      },
+    ],
     tasks: [
       {
         name: "Android Development",
