@@ -11,6 +11,7 @@ export interface Database {
     Tables: {
       course: {
         Row: {
+          color: string | null
           created_at: string | null
           description: string
           id: number
@@ -18,6 +19,7 @@ export interface Database {
           schedule: Json | null
         }
         Insert: {
+          color?: string | null
           created_at?: string | null
           description: string
           id?: number
@@ -25,6 +27,7 @@ export interface Database {
           schedule?: Json | null
         }
         Update: {
+          color?: string | null
           created_at?: string | null
           description?: string
           id?: number

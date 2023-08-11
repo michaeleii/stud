@@ -22,13 +22,19 @@ import { formatDistanceDay, timeParser } from "@/helpers/time";
 import { useCourses } from "@/hooks/course/useCourses";
 import ScheduleItem from "./ScheduleItem";
 import { useStudy } from "@/hooks/study/useStudy";
+import Loading from "./Loading";
 
 function Dashboard() {
   const { courses, isLoading } = useCourses();
   const [date, setDate] = useState<Date | undefined>(new Date());
   const { studyData, isLoadingStudy } = useStudy();
 
-  let todayCourseData: { id: number; name: string; time: string }[] = [];
+  let todayCourseData: {
+    id: number;
+    name: string;
+    time: string;
+    color: string;
+  }[] = [];
 
   courses?.forEach((course) => {
     (course.schedule as { day: string; time: string }[])?.forEach(
@@ -38,6 +44,7 @@ function Dashboard() {
             id: course.id,
             name: course.name,
             time: schedule.time,
+            color: course.color ?? "blue",
           });
         }
       }
@@ -58,7 +65,7 @@ function Dashboard() {
     });
 
   return (
-    <div className="mt-10 grid grid-cols-1 gap-5 xl:grid-cols-3">
+    <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-5 xl:grid-cols-3">
       <Card className="col-span-2">
         <CardHeader>
           <h3 className="text-sm font-medium tracking-tight">Study Time</h3>
@@ -87,7 +94,7 @@ function Dashboard() {
           </ResponsiveContainer>
         </CardContent>
       </Card>
-      <Card className="row-span-2 mx-auto pt-5">
+      <Card className="row-span-2 max-w-xs pt-5">
         <CardContent>
           <div className="flex justify-center">
             <Calendar
@@ -116,8 +123,10 @@ function Dashboard() {
                 key={course.id}
                 time={course.time}
                 name={course.name}
+                color={course.color}
               />
             ))}
+            {isLoading && <Loading />}
           </div>
         </CardContent>
       </Card>
