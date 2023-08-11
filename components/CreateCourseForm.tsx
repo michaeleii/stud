@@ -16,7 +16,16 @@ import ButtonLoading from "./ButtonLoading";
 import { Button } from "./ui/button";
 import { DialogFooter } from "./ui/dialog";
 
-import { SelectComponent } from "./ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import { SelectComponent } from "./ui/SelectComponent";
+import { colors, variants } from "./ScheduleItem";
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -30,6 +39,7 @@ const formSchema = z.object({
       label: z.string(),
     })
   ),
+  color: z.string(),
 });
 
 const dayOfWeekList = [
@@ -56,7 +66,7 @@ function CreateCourseForm() {
   function onSubmit(values: FormValues) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    const { name, description } = values;
+    const { name, description, color } = values;
     const timeElements =
       document.querySelectorAll<HTMLInputElement>(".time-slot");
     const schedule = Array.from(timeElements).map((time) => {
@@ -66,7 +76,7 @@ function CreateCourseForm() {
       };
     });
 
-    const newCourse = { name, description, schedule };
+    const newCourse = { name, description, schedule, color };
 
     createCourse(newCourse);
   }
@@ -114,12 +124,44 @@ function CreateCourseForm() {
         />
         <FormField
           control={form.control}
+          name="color"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Color</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a color..." />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {colors.map((color) => {
+                    return (
+                      <SelectItem key={color} value={color}>
+                        <div className="flex gap-2">
+                          <div
+                            className={`h-5 w-5 rounded-full ${variants[color]}`}
+                          ></div>
+                          <span>{color}</span>
+                        </div>
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="weekdays"
           render={({ field }) => (
             <FormItem>
               <FormLabel>When do you have your course?</FormLabel>
               <FormControl>
                 <SelectComponent
+                  placeholder="Select a day..."
                   createAble={false}
                   isMulti={true}
                   options={dayOfWeekList}

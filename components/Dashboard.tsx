@@ -11,12 +11,18 @@ import { Separator } from "./ui/separator";
 import { formatDistanceDay, timeParser } from "@/helpers/time";
 import { useCourses } from "@/hooks/course/useCourses";
 import ScheduleItem from "./ScheduleItem";
+import Loading from "./Loading";
 
 function Dashboard() {
   const { courses, isLoading } = useCourses();
   const [date, setDate] = useState<Date | undefined>(new Date());
 
-  let todayCourseData: { id: number; name: string; time: string }[] = [];
+  let todayCourseData: {
+    id: number;
+    name: string;
+    time: string;
+    color: string;
+  }[] = [];
 
   courses?.forEach((course) => {
     (course.schedule as { day: string; time: string }[])?.forEach(
@@ -26,6 +32,7 @@ function Dashboard() {
             id: course.id,
             name: course.name,
             time: schedule.time,
+            color: course.color ?? "blue",
           });
         }
       }
@@ -84,8 +91,10 @@ function Dashboard() {
                 key={course.id}
                 time={course.time}
                 name={course.name}
+                color={course.color}
               />
             ))}
+            {isLoading && <Loading />}
           </div>
         </CardContent>
       </Card>

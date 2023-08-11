@@ -16,6 +16,7 @@ import {
 import CreateCourseForm from "@/components/CreateCourseForm";
 import { useCourses } from "@/hooks/course/useCourses";
 import LoadingPage from "@/components/LoadingPage";
+// import { seedDB } from "@/services/seedDb";
 
 function Courses() {
   const { courses, isLoading } = useCourses();
@@ -26,6 +27,7 @@ function Courses() {
     <>
       <div className="flex items-center gap-5">
         <PageHeading>Courses ({courses?.length})</PageHeading>
+        {/* <Button onClick={seedDB}>SeedDb</Button> */}
         <Dialog>
           <DialogTrigger asChild>
             <Button className="ml-auto space-x-2">

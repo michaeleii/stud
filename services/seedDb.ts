@@ -6,6 +6,8 @@ export async function seedDB() {
     return {
       name: course.name,
       description: course.description,
+      color: course.color,
+      schedule: course.schedule,
     };
   });
   const { error } = await supabase.from("course").insert(randomCourses);
