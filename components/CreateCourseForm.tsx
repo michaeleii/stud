@@ -30,7 +30,6 @@ const formSchema = z.object({
       label: z.string(),
     })
   ),
-  time: z.string(),
 });
 
 const dayOfWeekList = [
@@ -57,14 +56,24 @@ function CreateCourseForm() {
   function onSubmit(values: FormValues) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    const { name, description, weekdays, time } = values;
-    const newCourse = { name, description };
-    console.log({
-      time: time,
-      weekdays,
+    const { name, description } = values;
+    const timeElements =
+      document.querySelectorAll<HTMLInputElement>(".time-slot");
+    const schedule = Array.from(timeElements).map((time) => {
+      return {
+        day: time.name,
+        time: time.value,
+      };
     });
+
+    const newCourse = { name, description, schedule };
+
     createCourse(newCourse);
   }
+
+  const { watch } = form;
+
+  const selectedWeekdays = watch("weekdays");
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -121,24 +130,27 @@ function CreateCourseForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="time"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>When time do you have your course?</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="What is your course about?"
-                  disabled={isLoading}
-                  type="time"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {selectedWeekdays &&
+          selectedWeekdays.map((day) => {
+            return (
+              <FormItem key={day.value}>
+                <FormLabel>
+                  What time do you have your course on {day.label}?
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="time-slot"
+                    name={String(day.value)}
+                    disabled={isLoading}
+                    type="time"
+                    required
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          })}
+
         <DialogFooter>
           {isLoading ? <ButtonLoading /> : <Button type="submit">Add</Button>}
         </DialogFooter>

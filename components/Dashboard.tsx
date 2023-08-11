@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -8,28 +8,43 @@ import {
 } from "./ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "./ui/separator";
-import { formatDistanceToNow } from "date-fns";
-
-function formatDistanceDay(date: Date): string {
-  const oneDay = 1000 * 3600 * 24;
-  const distance = Date.now() - date.getTime();
-  if (distance < oneDay && distance >= 0) {
-    return "Today";
-  }
-  if (distance < 2 * oneDay && distance > 0) {
-    return "Yesterday";
-  }
-
-  if (distance > -1 * oneDay && distance < 0) {
-    return "Tomorrow";
-  }
-  let result = formatDistanceToNow(date, { addSuffix: true });
-  result = result[0].toUpperCase() + result.slice(1);
-  return result;
-}
+import { formatDistanceDay, timeParser } from "@/helpers/time";
+import { useCourses } from "@/hooks/course/useCourses";
+import ScheduleItem from "./ScheduleItem";
 
 function Dashboard() {
+  const { courses, isLoading } = useCourses();
   const [date, setDate] = useState<Date | undefined>(new Date());
+
+  let todayCourseData: { id: number; name: string; time: string }[] = [];
+
+  courses?.forEach((course) => {
+    (course.schedule as { day: string; time: string }[])?.forEach(
+      (schedule) => {
+        if (schedule.day === date?.getDay().toString()) {
+          todayCourseData.push({
+            id: course.id,
+            name: course.name,
+            time: schedule.time,
+          });
+        }
+      }
+    );
+  });
+
+  const todayCourses = todayCourseData
+    .sort((a, b) => {
+      return (
+        Number(a.time.split(":").join("")) - Number(b.time.split(":").join(""))
+      );
+    })
+    .map((course) => {
+      return {
+        ...course,
+        time: timeParser(course.time),
+      };
+    });
+
   return (
     <div className="mt-10 grid grid-cols-1 gap-5 xl:grid-cols-3">
       <Card className="col-span-2">
@@ -63,32 +78,14 @@ function Dashboard() {
               day: "numeric",
             })}
           </CardDescription>
-          <div className="ml-2 mt-5 flex flex-col gap-2">
-            <div className="grid grid-cols-2">
-              <div className="text-lg font-medium tracking-tight">9:00 AM</div>
-              <div className="flex items-center gap-5">
-                <div className="h-5 w-1 rounded-full bg-blue-300"></div>
-                <div className="text-lg font-medium tracking-tight">Math</div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2">
-              <div className="text-lg font-medium tracking-tight">10:00 AM</div>
-              <div className="flex items-center gap-5">
-                <div className="h-5 w-1 bg-green-300"></div>
-                <div className="text-lg font-medium tracking-tight">
-                  Science
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2">
-              <div className="text-lg font-medium tracking-tight">10:00 AM</div>
-              <div className="flex items-center gap-5">
-                <div className="h-5 w-1 rounded-full bg-red-300"></div>
-                <div className="text-lg font-medium tracking-tight">
-                  English
-                </div>
-              </div>
-            </div>
+          <div className="ml-2 mt-5 flex flex-col gap-4">
+            {todayCourses.map((course) => (
+              <ScheduleItem
+                key={course.id}
+                time={course.time}
+                name={course.name}
+              />
+            ))}
           </div>
         </CardContent>
       </Card>
