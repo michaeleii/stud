@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useTasks } from "@/hooks/task/useTasks";
 import { useCreateTask } from "@/hooks/task/useCreateTask";
 import ButtonLoading from "@/components/ButtonLoading";
+import LoadingFullPage from "@/components/LoadingPage";
 
 export interface Todo {
   id: number;
@@ -22,7 +23,7 @@ function CourseDetails() {
   const { createTask, isCreatingTask } = useCreateTask();
 
   const [name, setName] = useState("");
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingFullPage />;
 
   if (!course) return <div className="text-center">Course not found</div>;
 
@@ -50,7 +51,7 @@ function CourseDetails() {
         </div>
       </div>
       {isLoadingTasks ? (
-        <div>Loading...</div>
+        <div>Fetching Tasks...</div>
       ) : (
         <Todo>
           <Todo.Heading>Tasks</Todo.Heading>
