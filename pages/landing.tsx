@@ -18,14 +18,8 @@ function LandingPage() {
 
   return (
     <>
-      <section className="space-y-6 pb-8 pt-6 md:pb-12 lg:pb-32">
+      <section className="space-y-6 pb-8 pt-10 md:pb-12 lg:pb-32">
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-          <a
-            href="#"
-            className="rounded-2xl bg-muted px-4 py-1.5 text-sm font-medium"
-          >
-            Stud is now in beta 🎉
-          </a>
           <h1 className="text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Stay on top of school.
           </h1>
@@ -41,7 +35,7 @@ function LandingPage() {
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-7xl p-10">
-                <video controls>
+                <video autoPlay controls>
                   <source src="/stud-demo-1.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
