@@ -23,3 +23,11 @@ export async function deleteTask(id: Task["id"]) {
   const { error } = await supabase.from("task").delete().match({ id });
   if (error) throw error;
 }
+
+export async function updateTaskStatus(id: Task["id"], is_completed: boolean) {
+  const { error } = await supabase
+    .from("task")
+    .update({ is_completed })
+    .match({ id });
+  if (error) throw error;
+}

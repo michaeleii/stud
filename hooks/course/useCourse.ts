@@ -1,13 +1,10 @@
 import { getCourse } from "@/services/apiCourse";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 
-export function useCourse() {
-  const router = useRouter();
-  const id = router.query.id;
+export function useCourse(id: number) {
   const { data: course, isLoading } = useQuery({
     queryKey: ["course"],
-    queryFn: () => getCourse(Number(id)),
+    queryFn: () => getCourse(id),
     enabled: !!id,
   });
   return { course, isLoading };

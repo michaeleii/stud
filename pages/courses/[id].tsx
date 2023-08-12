@@ -10,6 +10,7 @@ import { useTasks } from "@/hooks/task/useTasks";
 import { useCreateTask } from "@/hooks/task/useCreateTask";
 import ButtonLoading from "@/components/ButtonLoading";
 import LoadingFullPage from "@/components/LoadingPage";
+import { useRouter } from "next/router";
 
 export interface Todo {
   id: number;
@@ -18,8 +19,10 @@ export interface Todo {
 }
 
 function CourseDetails() {
-  const { course, isLoading } = useCourse();
-  const { tasks, isLoading: isLoadingTasks } = useTasks();
+  const router = useRouter();
+  const id = Number(router.query.id);
+  const { course, isLoading } = useCourse(id);
+  const { tasks, isLoading: isLoadingTasks } = useTasks(id);
   const { createTask, isCreatingTask } = useCreateTask();
 
   const [name, setName] = useState("");

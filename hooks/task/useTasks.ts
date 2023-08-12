@@ -1,13 +1,10 @@
 import { getTasks } from "@/services/apiTask";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 
-export function useTasks() {
-  const router = useRouter();
-  const id = router.query.id;
+export function useTasks(id: number) {
   const { data: tasks, isLoading } = useQuery({
     queryKey: ["tasks"],
-    queryFn: () => getTasks(Number(id)),
+    queryFn: () => getTasks(id),
     enabled: !!id,
   });
   return { tasks, isLoading };
