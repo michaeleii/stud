@@ -2,8 +2,16 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import Image from "next/image";
-import { AlarmClock, BookCopy, Calendar, ListTodo } from "lucide-react";
+import {
+  AlarmClock,
+  BookCopy,
+  Calendar,
+  ListTodo,
+  PlayCircle,
+} from "lucide-react";
 import Footer from "@/components/Footer";
+
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 function LandingPage() {
   const { theme } = useTheme();
@@ -24,14 +32,25 @@ function LandingPage() {
           <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
             A simple, yet powerful tool to help you manage your school life.
           </p>
-          <div className="space-x-2">
+          <div className="flex items-center gap-2">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <PlayCircle />
+                  Watch Demo
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-7xl p-10">
+                <video controls>
+                  <source src="/stud-demo-1.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </DialogContent>
+            </Dialog>
             <Button asChild>
-              <Link href="/login">Get Started</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href="https://github.com/michaeleii/StuD" target="_blank">
-                Github
-              </a>
+              <Link href="/login" className="flex items-center gap-2">
+                Get Started
+              </Link>
             </Button>
           </div>
         </div>
