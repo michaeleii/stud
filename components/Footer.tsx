@@ -5,6 +5,7 @@ function Footer() {
         Built by{" "}
         <a
           href="https://github.com/michaeleii"
+          target="_blank"
           className="font-medium underline underline-offset-4"
         >
           Michael
@@ -12,6 +13,7 @@ function Footer() {
         and{" "}
         <a
           href="https://github.com/scottchen98"
+          target="_blank"
           className="font-medium underline underline-offset-4"
         >
           Scott
@@ -19,6 +21,7 @@ function Footer() {
         . Built using{" "}
         <a
           href="https://nextjs.org/"
+          target="_blank"
           className="font-medium underline underline-offset-4"
         >
           Next.js
@@ -26,6 +29,7 @@ function Footer() {
         ,{" "}
         <a
           href="https://tailwindcss.com/"
+          target="_blank"
           className="font-medium underline underline-offset-4"
         >
           TailwindCSS
@@ -33,6 +37,7 @@ function Footer() {
         , and{" "}
         <a
           href="https://supabase.com/"
+          target="_blank"
           className="font-medium underline underline-offset-4"
         >
           Supabase
