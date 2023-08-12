@@ -28,11 +28,11 @@ function Footer() {
         </a>
         ,{" "}
         <a
-          href="https://tailwindcss.com/"
+          href="https://ui.shadcn.com/"
           target="_blank"
           className="font-medium underline underline-offset-4"
         >
-          TailwindCSS
+          shadcn UI
         </a>
         , and{" "}
         <a

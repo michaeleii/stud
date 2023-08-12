@@ -18,7 +18,7 @@ function LandingPage() {
 
   return (
     <>
-      <section className="space-y-6 pb-8 pt-10 md:pb-12 lg:pb-32">
+      <section className="lg:pb-30 space-y-6 pb-8 pt-10 md:pb-32">
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
           <h1 className="text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Stay on top of school.
@@ -60,7 +60,7 @@ function LandingPage() {
           />
         </div>
       </section>
-      <section className="mx-auto flex max-w-[58rem] flex-col items-center text-center">
+      <section className="mx-auto flex max-w-[58rem] flex-col items-center pb-8 pt-10 text-center md:pb-32">
         <h2 className="text-3xl font-bold leading-[1.1] tracking-tight sm:text-3xl md:text-6xl">
           Features
         </h2>
