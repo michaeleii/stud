@@ -26,6 +26,7 @@ import Loading from "./Loading";
 import CourseCard from "./CourseCard";
 import Link from "next/link";
 import LoadingPage from "./LoadingPage";
+import Pomodoro from "./Pomodoro";
 
 function Dashboard() {
   const { courses, isLoading } = useCourses();
@@ -70,16 +71,42 @@ function Dashboard() {
     });
 
   return (
-    <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-5 xl:grid-cols-3">
-      <div className="col-span-2 grid grid-cols-1 gap-2 xl:grid-cols-2">
-        {courses &&
-          courses.map((course) => (
-            <Link key={course.id} href={`/courses/${course.id}`}>
-              <CourseCard course={course} />
-            </Link>
-          ))}
+    <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-5 xl:grid-cols-3 xl:grid-rows-3">
+      <div>
+        <Pomodoro />
       </div>
-      <Card className="row-span-1 h-fit max-w-xs pt-5">
+      <Card className="col-span-2 h-fit xl:col-span-1">
+        <CardHeader>
+          <h3 className="text-md font-medium tracking-tight">
+            Study Time for Past 7 Days
+          </h3>
+        </CardHeader>
+        <CardContent>
+          <ResponsiveContainer height={305}>
+            <BarChart data={studyData}>
+              <XAxis
+                dataKey="day"
+                strokeWidth={0}
+                stroke="#888888"
+                tick={{ fontSize: 12 }}
+              />
+              <YAxis
+                unit="mins"
+                strokeWidth={0}
+                stroke="#888888"
+                tick={{ fontSize: 12 }}
+              />
+
+              <Bar
+                className="fill-red-400 dark:fill-red-700"
+                dataKey="studyTime"
+                name="Study time"
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+      <Card className="h-fit max-w-xs pt-5 xl:row-span-2">
         <CardContent>
           <div className="flex justify-center">
             <Calendar
@@ -115,37 +142,14 @@ function Dashboard() {
         </CardContent>
       </Card>
 
-      <Card className="col-span-2">
-        <CardHeader>
-          <h3 className="text-md font-medium tracking-tight">
-            Study Time for Past 7 Days
-          </h3>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer height={200}>
-            <BarChart data={studyData}>
-              <XAxis
-                dataKey="day"
-                strokeWidth={0}
-                stroke="#888888"
-                tick={{ fontSize: 12 }}
-              />
-              <YAxis
-                unit="mins"
-                strokeWidth={0}
-                stroke="#888888"
-                tick={{ fontSize: 12 }}
-              />
-
-              <Bar
-                className="fill-red-400 dark:fill-red-700"
-                dataKey="studyTime"
-                name="Study time"
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
+      <div className="col-span-2 grid grid-cols-1 gap-2 xl:row-span-2 xl:grid-cols-2">
+        {courses &&
+          courses.map((course) => (
+            <Link key={course.id} href={`/courses/${course.id}`}>
+              <CourseCard course={course} />
+            </Link>
+          ))}
+      </div>
     </div>
   );
 }

@@ -13,7 +13,7 @@ const longBreakColors: Colors = ["#3b82f6", "#3b82f6"];
 
 export default function Pomodoro() {
   return (
-    <Tabs defaultValue="focus" className="mx-auto my-5 w-[400px]">
+    <Tabs defaultValue="focus" className="mx-auto w-[400px]">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="focus">Focus</TabsTrigger>
         <TabsTrigger value="short-break">Short break</TabsTrigger>
