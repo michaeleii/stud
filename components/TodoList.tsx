@@ -8,6 +8,8 @@ import { Button } from "./ui/button";
 import { Task } from "@/services/apiTask";
 import { useDeleteTask } from "@/hooks/task/useDeleteTask";
 import ButtonLoading from "./ButtonLoading";
+import { useUpdateTaskStatus } from "@/hooks/task/useUpdateTaskStatus";
+import { set } from "date-fns";
 
 function Heading({ children }: { children: React.ReactNode }) {
   return <h3 className="my-3 text-2xl font-semibold">{children}</h3>;
@@ -22,6 +24,13 @@ function List({ children }: { children: React.ReactNode }) {
 function Item({ task }: { task: Task }) {
   const [isChecked, setIsChecked] = useState(task.is_completed);
   const { deleteTask, isDeletingTask } = useDeleteTask();
+  const { updateTaskStatus, isUpdating } = useUpdateTaskStatus();
+
+  const handleUpdate = () => {
+    if (isUpdating) return;
+    setIsChecked(!isChecked);
+    updateTaskStatus({ id: task.id, is_completed: !isChecked });
+  };
 
   const handleDelete = (id: number) => {
     deleteTask(id);
@@ -33,9 +42,9 @@ function Item({ task }: { task: Task }) {
           "flex flex-1 items-center gap-5 p-5 hover:cursor-pointer" +
           (isChecked ? " bg-green-300 dark:bg-green-900" : "")
         }
-        onClick={() => setIsChecked(!isChecked)}
+        onClick={handleUpdate}
       >
-        <Checkbox checked={isChecked} />
+        <Checkbox checked={isChecked} disabled={isUpdating} />
         <h4 className={"text-xl" + (isChecked ? " line-through" : "")}>
           {task.name}
         </h4>

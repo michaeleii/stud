@@ -69,7 +69,14 @@ function CourseDetails() {
 
           <Todo.List>
             {tasks &&
-              tasks.map((task) => <Todo.Item key={task.id} task={task} />)}
+              tasks
+                .sort((a, b) => {
+                  if (a.is_completed === b.is_completed) {
+                    return a.id - b.id; // If both tasks have the same completed status, sort by id
+                  }
+                  return a.is_completed ? 1 : -1; // Completed tasks come last
+                })
+                .map((task) => <Todo.Item key={task.id} task={task} />)}
           </Todo.List>
         </Todo>
       )}

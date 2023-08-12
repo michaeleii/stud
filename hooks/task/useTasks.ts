@@ -7,5 +7,6 @@ export function useTasks(id: number) {
     queryFn: () => getTasks(id),
     enabled: !!id,
   });
+
   return { tasks, isLoading };
 }
