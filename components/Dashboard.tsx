@@ -8,7 +8,7 @@ import {
   Legend,
   Bar,
 } from "recharts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -23,6 +23,10 @@ import { useCourses } from "@/hooks/course/useCourses";
 import ScheduleItem from "./ScheduleItem";
 import { useStudy } from "@/hooks/study/useStudy";
 import Loading from "./Loading";
+import CourseCard from "./CourseCard";
+import Link from "next/link";
+import LoadingPage from "./LoadingPage";
+import Pomodoro from "./Pomodoro";
 
 function Dashboard() {
   const { courses, isLoading } = useCourses();
@@ -35,6 +39,8 @@ function Dashboard() {
     time: string;
     color: string;
   }[] = [];
+
+  if (isLoading) return <LoadingPage />;
 
   courses?.forEach((course) => {
     (course.schedule as { day: string; time: string }[])?.forEach(
@@ -65,36 +71,17 @@ function Dashboard() {
     });
 
   return (
-    <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-5 xl:grid-cols-3">
-      <Card className="col-span-2">
-        <CardHeader>
-          <h3 className="text-sm font-medium tracking-tight">Study Time</h3>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={350}>
-            <BarChart data={studyData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis unit="min" />
-              <Tooltip />
-              <Legend iconType="circle" iconSize={13} />
-              <Bar
-                className="fill-red-400"
-                fill="#f87171"
-                dataKey="studyTime"
-                name="Study time"
-              />
-              <Bar
-                className="fill-blue-400"
-                fill="#60a5fa"
-                dataKey="breakTime"
-                name="Break time"
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-      <Card className="row-span-2 max-w-xs pt-5">
+    <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-5 xl:grid-cols-3 xl:grid-rows-3">
+      <div className="col-span-2 grid grid-cols-1 gap-2 xl:row-span-2 xl:grid-cols-2">
+        {courses &&
+          courses.map((course) => (
+            <Link key={course.id} href={`/courses/${course.id}`}>
+              <CourseCard course={course} />
+            </Link>
+          ))}
+      </div>
+
+      <Card className="mx-auto h-fit max-w-xs pt-5 xl:row-span-2 xl:ml-0 xl:mr-0">
         <CardContent>
           <div className="flex justify-center">
             <Calendar
@@ -126,8 +113,42 @@ function Dashboard() {
                 color={course.color}
               />
             ))}
-            {isLoading && <Loading />}
           </div>
+        </CardContent>
+      </Card>
+
+      <div className="col-span-2 xl:col-span-1">
+        <Pomodoro />
+      </div>
+      <Card className="col-span-2 h-fit max-w-3xl">
+        <CardHeader>
+          <h3 className="text-md font-medium tracking-tight">
+            Study Time for Past 7 Days
+          </h3>
+        </CardHeader>
+        <CardContent>
+          <ResponsiveContainer height={305}>
+            <BarChart data={studyData}>
+              <XAxis
+                dataKey="day"
+                strokeWidth={0}
+                stroke="#888888"
+                tick={{ fontSize: 12 }}
+              />
+              <YAxis
+                unit="mins"
+                strokeWidth={0}
+                stroke="#888888"
+                tick={{ fontSize: 12 }}
+              />
+
+              <Bar
+                className="fill-red-400 dark:fill-red-700"
+                dataKey="studyTime"
+                name="Study time"
+              />
+            </BarChart>
+          </ResponsiveContainer>
         </CardContent>
       </Card>
     </div>

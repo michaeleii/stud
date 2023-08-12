@@ -10,6 +10,7 @@ import { useTasks } from "@/hooks/task/useTasks";
 import { useCreateTask } from "@/hooks/task/useCreateTask";
 import ButtonLoading from "@/components/ButtonLoading";
 import LoadingFullPage from "@/components/LoadingPage";
+import { useRouter } from "next/router";
 
 export interface Todo {
   id: number;
@@ -18,8 +19,10 @@ export interface Todo {
 }
 
 function CourseDetails() {
-  const { course, isLoading } = useCourse();
-  const { tasks, isLoading: isLoadingTasks } = useTasks();
+  const router = useRouter();
+  const id = Number(router.query.id);
+  const { course, isLoading } = useCourse(id);
+  const { tasks, isLoading: isLoadingTasks } = useTasks(id);
   const { createTask, isCreatingTask } = useCreateTask();
 
   const [name, setName] = useState("");
@@ -66,7 +69,14 @@ function CourseDetails() {
 
           <Todo.List>
             {tasks &&
-              tasks.map((task) => <Todo.Item key={task.id} task={task} />)}
+              tasks
+                .sort((a, b) => {
+                  if (a.is_completed === b.is_completed) {
+                    return a.id - b.id; // If both tasks have the same completed status, sort by id
+                  }
+                  return a.is_completed ? 1 : -1; // Completed tasks come last
+                })
+                .map((task) => <Todo.Item key={task.id} task={task} />)}
           </Todo.List>
         </Todo>
       )}
