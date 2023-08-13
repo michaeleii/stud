@@ -49,12 +49,19 @@ export async function getCourses() {
 }
 
 export async function getCourse(id: Course["id"]) {
+  const { data: User, error: UserError } = await supabase.auth.getUser();
+  if (UserError) throw UserError;
+  if (!User) throw new Error("User is not logged in");
+  const { user } = User;
   const { data, error } = await supabase
     .from("course")
     .select("*")
     .match({ id })
     .single();
   if (error) throw error;
+
+  if (data.user_id !== user.id)
+    throw new Error("Course does not belong to user");
 
   return data;
 }
