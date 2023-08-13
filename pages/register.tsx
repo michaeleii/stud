@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useSignUp } from "@/hooks/authentication/useSignUp";
 import ButtonLoading from "@/components/ButtonLoading";
+import AlreadyLoggedIn from "@/components/AlreadyLoggedIn";
 
 const formSchema = z.object({
   fullName: z
@@ -51,84 +52,89 @@ export default function Register() {
   }
 
   return (
-    <div className="mx-auto h-full w-1/3">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center text-3xl font-bold">
-            Sign Up
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Type your full name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <AlreadyLoggedIn>
+      <div className="mx-auto h-full w-1/3">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center text-3xl font-bold">
+              Sign Up
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Type your full name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="Type your email"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="Type your email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Type your password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="Type your password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              {isSigningUp ? (
-                <ButtonLoading className="w-full" />
-              ) : (
-                <Button className="w-full" type="submit">
-                  SIGN UP
-                </Button>
-              )}
-            </form>
-          </Form>
-          <hr className="mt-10 rounded-md border-[1.5px] border-solid" />
-          <p className="mt-7 text-center">
-            Already have an account?{" "}
-            <Link href={"/login"} className="underline">
-              LOGIN
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+                {isSigningUp ? (
+                  <ButtonLoading className="w-full" />
+                ) : (
+                  <Button className="w-full" type="submit">
+                    SIGN UP
+                  </Button>
+                )}
+              </form>
+            </Form>
+            <hr className="mt-10 rounded-md border-[1.5px] border-solid" />
+            <p className="mt-7 text-center">
+              Already have an account?{" "}
+              <Link href={"/login"} className="underline">
+                LOGIN
+              </Link>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </AlreadyLoggedIn>
   );
 }

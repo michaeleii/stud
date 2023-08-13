@@ -5,14 +5,15 @@ import { login as loginApi } from "@/services/apiAuth";
 
 export function useLogin() {
   const router = useRouter();
-
+  const queryClient = useQueryClient();
   const { mutate: login, isLoading: isLoggingIn } = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       loginApi({ email, password }),
-    onSuccess: () => {
-      router.push("/");
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(["user"]);
+      await router.push("/");
     },
-    onError: (error) => {
+    onError: () => {
       console.log("Provided email or password is incorrect");
     },
   });

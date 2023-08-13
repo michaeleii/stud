@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { useLogin } from "@/hooks/authentication/useLogin";
 import { log } from "console";
 import ButtonLoading from "@/components/ButtonLoading";
+import AlreadyLoggedIn from "@/components/AlreadyLoggedIn";
 
 const formSchema = z.object({
   email: z.string().min(2, { message: "Email must be at least 2 characters." }),
@@ -40,7 +41,7 @@ export default function Login() {
     },
   });
 
-  function onSubmit(values: FormValues) {
+  async function onSubmit(values: FormValues) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     const { email, password } = values;
@@ -48,69 +49,74 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto h-full w-1/3">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center text-3xl font-bold">
-            Login
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="Type your email"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <AlreadyLoggedIn>
+      <div className="mx-auto h-full w-1/3">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center text-3xl font-bold">
+              Login
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="Type your email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Type your password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="Type your password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {isLoggingIn ? (
+                  <ButtonLoading className="w-full" />
+                ) : (
+                  <Button className="w-full" type="submit">
+                    LOGIN
+                  </Button>
                 )}
-              />
-              {isLoggingIn ? (
-                <ButtonLoading className="w-full" />
-              ) : (
-                <Button className="w-full" type="submit">
-                  LOGIN
-                </Button>
-              )}
-            </form>
-          </Form>
-          <hr className="mt-10 rounded-md border-[1.5px] border-solid" />
-          <p className="mt-7 text-center">
-            Need an account?{" "}
-            <Link href={"/register"} className="underline">
-              SIGN UP
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+              </form>
+            </Form>
+            <hr className="mt-10 rounded-md border-[1.5px] border-solid" />
+            <p className="mt-7 text-center">
+              Need an account?{" "}
+              <Link href={"/register"} className="underline">
+                SIGN UP
+              </Link>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </AlreadyLoggedIn>
   );
 }

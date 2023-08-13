@@ -1,3 +1,4 @@
+import { useUser } from "@/hooks/authentication/useUser";
 import PageHeading from "./PageHeading";
 
 // Get the current timestamp in milliseconds
@@ -25,8 +26,14 @@ function getTimeOfDay(hour: number) {
 // Get the time of day
 
 function Greeting() {
+  const { user, isLoadingUser } = useUser();
   const timeOfDay = getTimeOfDay(currentHour);
   const greeting = `Good ${timeOfDay},`;
-  return <PageHeading>{greeting} John</PageHeading>;
+  return (
+    <PageHeading>
+      {greeting}{" "}
+      {(!isLoadingUser && user && user.user_metadata.fullName) ?? "User"}
+    </PageHeading>
+  );
 }
 export default Greeting;

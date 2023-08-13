@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Logout from "@/components/Logout";
 
 import { useUser } from "@/hooks/authentication/useUser";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,9 @@ function Layout({ children }: { children: React.ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <div className={`${inter.className}`}>
         <div className="flex items-center border-b p-5">
-          <div className="mr-5 text-3xl font-bold">stud.</div>
+          <Link href="/" className="mr-5 text-3xl font-bold">
+            stud.
+          </Link>
           {!isLoadingUser && user && <Nav />}
 
           <div className="ml-auto">

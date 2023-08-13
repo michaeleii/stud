@@ -1,19 +1,19 @@
-import {
-  ResponsiveContainer,
-  BarChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  Bar,
-} from "recharts";
+// import {
+//   ResponsiveContainer,
+//   BarChart,
+//   CartesianGrid,
+//   XAxis,
+//   YAxis,
+//   Tooltip,
+//   Legend,
+//   Bar,
+// } from "recharts";
 import { useState } from "react";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
+  // CardHeader,
   CardTitle,
 } from "./ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -21,17 +21,18 @@ import { Separator } from "./ui/separator";
 import { formatDistanceDay, timeParser } from "@/helpers/time";
 import { useCourses } from "@/hooks/course/useCourses";
 import ScheduleItem from "./ScheduleItem";
-import { useStudy } from "@/hooks/study/useStudy";
-import Loading from "./Loading";
+// import { useStudy } from "@/hooks/study/useStudy";
+// import Loading from "./Loading";
 import CourseCard from "./CourseCard";
 import Link from "next/link";
 import LoadingPage from "./LoadingPage";
-import Pomodoro from "./Pomodoro";
+// import Pomodoro from "./Pomodoro";
 
 function Dashboard() {
   const { courses, isLoading } = useCourses();
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const { studyData, isLoadingStudy } = useStudy();
+
+  // const { studyData, isLoadingStudy } = useStudy();
 
   let todayCourseData: {
     id: number;
@@ -117,7 +118,7 @@ function Dashboard() {
         </CardContent>
       </Card>
 
-      <div className="col-span-2 xl:col-span-1">
+      {/* <div className="col-span-2 xl:col-span-1">
         <Pomodoro />
       </div>
       <Card className="col-span-2 h-fit max-w-3xl">
@@ -150,7 +151,7 @@ function Dashboard() {
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   );
 }
