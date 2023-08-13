@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { Toaster } from "@/components/ui/toaster";
 
 import { Inter } from "next/font/google";
 import Nav from "@/components/Nav";
@@ -7,6 +8,9 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { useLogout } from "@/hooks/authentication/useLogout";
+import Logout from "@/components/Logout";
 import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -32,9 +36,13 @@ function Layout({ children }: { children: React.ReactNode }) {
             <div className="ml-auto">
               <ModeToggle />
             </div>
+            <div>
+              <Logout />
+            </div>
           </div>
           <main className="px-5 pt-5 xl:px-10 xl:pt-10">{children}</main>
         </div>
+        <Toaster />
       </QueryClientProvider>
     </ThemeProvider>
   );
