@@ -13,6 +13,7 @@ import Logout from "@/components/Logout";
 
 import { useUser } from "@/hooks/authentication/useUser";
 import Link from "next/link";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,25 @@ function Layout({ children }: { children: React.ReactNode }) {
   const { user, isLoadingUser } = useUser();
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <div>
+        <Head>
+          <title>Stud - Your Study Dashboard</title>
+          <meta
+            name="description"
+            content="A simple, yet powerful tool to help you manage your school life."
+            key="desc"
+          />
+          <meta property="og:title" content="Stud - Your Study Dashboard" />
+          <meta
+            property="og:description"
+            content="A simple, yet powerful tool to help you manage your school life."
+          />
+          <meta
+            property="og:image"
+            content="https://studd.vercel.app/meta.jpg"
+          />
+        </Head>
+      </div>
       <div className={`${inter.className}`}>
         <div className="flex items-center border-b p-5">
           <Link href="/" className="mr-5 text-3xl font-bold">
