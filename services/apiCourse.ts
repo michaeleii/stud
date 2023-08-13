@@ -10,7 +10,14 @@ export async function createCourse(course: PartialCourse) {
 }
 
 export async function getCourses() {
-  const { data, error } = await supabase.from("course").select("*");
+  const { data: User, error: UserError } = await supabase.auth.getUser();
+  if (UserError) throw UserError;
+  if (!User) throw new Error("User is not logged in");
+  const { user } = User;
+  const { data, error } = await supabase
+    .from("course")
+    .select("*")
+    .match({ user_id: user.id });
   if (error) throw error;
 
   const courses = await Promise.all(
