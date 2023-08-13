@@ -12,12 +12,13 @@ import {
 import Footer from "@/components/Footer";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import AlreadyLoggedIn from "@/components/AlreadyLoggedIn";
 
 function LandingPage() {
   const { theme } = useTheme();
 
   return (
-    <>
+    <AlreadyLoggedIn>
       <section className="lg:pb-30 space-y-6 pb-8 pt-10 md:pb-32">
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
           <h1 className="text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
@@ -108,7 +109,7 @@ function LandingPage() {
         </div>
       </section>
       <Footer />
-    </>
+    </AlreadyLoggedIn>
   );
 }
 export default LandingPage;
