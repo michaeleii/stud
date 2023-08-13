@@ -94,7 +94,7 @@ export default function Login() {
                 )}
               />
               {isLoggingIn ? (
-                <ButtonLoading />
+                <ButtonLoading className="w-full" />
               ) : (
                 <Button className="w-full" type="submit">
                   LOGIN

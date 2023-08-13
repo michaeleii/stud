@@ -5,12 +5,14 @@ import DeleteSheet from "@/components/DeleteSheet";
 import Todo from "@/components/TodoList";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTasks } from "@/hooks/task/useTasks";
 import { useCreateTask } from "@/hooks/task/useCreateTask";
 import ButtonLoading from "@/components/ButtonLoading";
 import LoadingFullPage from "@/components/LoadingPage";
 import { useRouter } from "next/router";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import { useUser } from "@/hooks/authentication/useUser";
 
 export interface Todo {
   id: number;
@@ -24,11 +26,18 @@ function CourseDetails() {
   const { course, isLoading } = useCourse(id);
   const { tasks, isLoading: isLoadingTasks } = useTasks(id);
   const { createTask, isCreatingTask } = useCreateTask();
+  const { user, isLoadingUser } = useUser();
+
+  useEffect(() => {
+    if (!isLoadingUser && !user) {
+      router.replace("/landing");
+    }
+  }, [user, isLoadingUser, router]);
 
   const [name, setName] = useState("");
   if (isLoading) return <LoadingFullPage />;
 
-  if (!course) return <div className="text-center">Course not found</div>;
+  if (!course) return router.replace("/404");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSignUp } from "@/hooks/authentication/useSignUp";
+import ButtonLoading from "@/components/ButtonLoading";
 
 const formSchema = z.object({
   fullName: z
@@ -110,9 +111,13 @@ export default function Register() {
                 )}
               />
 
-              <Button className="w-full" type="submit">
-                SIGN UP
-              </Button>
+              {isSigningUp ? (
+                <ButtonLoading className="w-full" />
+              ) : (
+                <Button className="w-full" type="submit">
+                  SIGN UP
+                </Button>
+              )}
             </form>
           </Form>
           <hr className="mt-10 rounded-md border-[1.5px] border-solid" />

@@ -16,15 +16,20 @@ import {
 import CreateCourseForm from "@/components/CreateCourseForm";
 import { useCourses } from "@/hooks/course/useCourses";
 import LoadingPage from "@/components/LoadingPage";
+import { useUser } from "@/hooks/authentication/useUser";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import ProtectedRoute from "@/components/ProtectedRoute";
 // import { seedDB } from "@/services/seedDb";
 
 function Courses() {
   const { courses, isLoading } = useCourses();
+
   if (isLoading) {
     return <LoadingPage />;
   }
   return (
-    <>
+    <ProtectedRoute>
       <div className="flex items-center gap-5">
         <PageHeading>Courses ({courses?.length})</PageHeading>
         {/* <Button onClick={seedDB}>SeedDb</Button> */}
@@ -62,7 +67,7 @@ function Courses() {
           )}
         </ul>
       </section>
-    </>
+    </ProtectedRoute>
   );
 }
 export default Courses;

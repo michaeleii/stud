@@ -4,8 +4,7 @@ import ButtonLoading from "./ButtonLoading";
 
 export default function Logout() {
   const { logout, isLoggingOut } = useLogout();
-  const handleLogout: React.MouseEventHandler<HTMLButtonElement> = (event) =>
-    logout();
+  const handleLogout = (e: React.MouseEvent) => logout();
 
   return (
     <>
