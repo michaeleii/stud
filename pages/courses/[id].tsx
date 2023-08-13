@@ -23,7 +23,7 @@ export interface Todo {
 function CourseDetails() {
   const router = useRouter();
   const id = Number(router.query.id);
-  const { course, isLoading } = useCourse(id);
+  const { course, isLoading, error } = useCourse(id);
   const { tasks, isLoading: isLoadingTasks } = useTasks(id);
   const { createTask, isCreatingTask } = useCreateTask();
   const { user, isLoadingUser } = useUser();
@@ -36,8 +36,14 @@ function CourseDetails() {
 
   const [name, setName] = useState("");
   if (isLoading) return <LoadingFullPage />;
-
-  if (!course) return router.replace("/404");
+  if (error) {
+    router.push("/404");
+    return null;
+  }
+  if (!course) {
+    router.replace("/404");
+    return null;
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

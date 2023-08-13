@@ -3,17 +3,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 export function useCourse(id: number) {
-  const router = useRouter();
   const {
     data: course,
     isLoading,
-    isError,
+    error,
   } = useQuery({
     queryKey: ["course"],
     queryFn: () => getCourse(id),
     enabled: !!id,
+    retry: false,
   });
-  if (isError) router.push("/404");
 
-  return { course, isLoading };
+  return { course, isLoading, error };
 }
