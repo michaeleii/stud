@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { useLogout } from "@/hooks/authentication/useLogout";
 import Logout from "@/components/Logout";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,7 +40,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               <Logout />
             </div>
           </div>
-          <main className="p-5 xl:p-10">{children}</main>
+          <main className="px-5 pt-5 xl:px-10 xl:pt-10">{children}</main>
         </div>
         <Toaster />
       </QueryClientProvider>
