@@ -53,7 +53,7 @@ export default function Register() {
 
   return (
     <AlreadyLoggedIn>
-      <div className="mx-auto h-full w-1/3">
+      <div className="mx-auto h-full sm:w-1/2 lg:w-1/3">
         <Card>
           <CardHeader>
             <CardTitle className="text-center text-3xl font-bold">
