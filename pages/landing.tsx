@@ -37,7 +37,7 @@ function LandingPage() {
               </DialogTrigger>
               <DialogContent className="max-w-7xl p-10">
                 <video autoPlay controls>
-                  <source src="/stud-demo-1.mp4" type="video/mp4" />
+                  <source src="/stud-demo.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </DialogContent>
