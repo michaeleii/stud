@@ -49,6 +49,11 @@ export async function updateCourse(id: Course["id"], course: PartialCourse) {
 }
 
 export async function deleteCourse(id: Course["id"]) {
+  const { error: taskError } = await supabase
+    .from("task")
+    .delete()
+    .match({ course_id: id });
+  if (taskError) throw taskError;
   const { error } = await supabase.from("course").delete().match({ id });
   if (error) throw error;
 }
