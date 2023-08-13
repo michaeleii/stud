@@ -11,30 +11,40 @@ export interface Database {
     Tables: {
       course: {
         Row: {
-          color: string | null
+          color: string
           created_at: string | null
           description: string
           id: number
           name: string
           schedule: Json | null
+          user_id: string
         }
         Insert: {
-          color?: string | null
+          color: string
           created_at?: string | null
           description: string
           id?: number
           name: string
           schedule?: Json | null
+          user_id: string
         }
         Update: {
-          color?: string | null
+          color?: string
           created_at?: string | null
           description?: string
           id?: number
           name?: string
           schedule?: Json | null
+          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "course_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       task: {
         Row: {

@@ -2,10 +2,19 @@ import supabase from "./supabase";
 
 export type CourseWithCount = Awaited<ReturnType<typeof getCourses>>[0];
 export type Course = Omit<CourseWithCount, "totalCount" | "completedCount">;
-export type PartialCourse = Omit<Course, "id" | "created_at" | "schedule">;
+export type PartialCourse = Omit<
+  Course,
+  "id" | "created_at" | "schedule" | "user_id"
+>;
 
 export async function createCourse(course: PartialCourse) {
-  const { error } = await supabase.from("course").insert([course]);
+  const { data: User, error: UserError } = await supabase.auth.getUser();
+  if (UserError) throw UserError;
+  const { user } = User;
+
+  const { error } = await supabase
+    .from("course")
+    .insert([{ ...course, user_id: user.id }]);
   if (error) throw error;
 }
 
