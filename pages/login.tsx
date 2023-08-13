@@ -50,7 +50,7 @@ export default function Login() {
 
   return (
     <AlreadyLoggedIn>
-      <div className="mx-auto h-full w-1/3">
+      <div className="mx-auto h-full max-w-xl">
         <Card>
           <CardHeader>
             <CardTitle className="text-center text-3xl font-bold">
