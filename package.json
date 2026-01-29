@@ -53,6 +53,6 @@
   "devDependencies": {
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.4.1",
-    "supabase": "^2.72.8"
+    "supabase": "^2.72.9"
   }
 }
